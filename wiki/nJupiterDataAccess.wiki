@@ -1,0 +1,21 @@
+#summary Documentation for nJupiter.DataAccess
+
+<wiki:toc max_depth="2" />
+
+= nJupiter.DataAccess =
+
+
+Data access abstraction with adapters for SQL Server, ODBC, OleDB and Oracle especially written to make it easier to sitch between different data sources and make it easier to handle transactions.
+
+== Dependencies ==
+
+  * [nJupiterConfiguration nJupiter.Configuration]
+  * [http://logging.apache.org/log4net/index.html log4net]
+
+== How to use ==
+
+Soon to come
+
+== Examples ==
+
+Soon to come
