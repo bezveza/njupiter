@@ -1,4 +1,11 @@
+#summary Documentation for nJupiter.Configuration
+
+<wiki:toc max_depth="1" />
+
 = nJupiter.Configuration =
 
-#summary nJupiter.Configuration
+== Dependencies ==
 
+== How to use ==
+
+== Examples ==
