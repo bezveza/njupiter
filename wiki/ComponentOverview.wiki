@@ -20,7 +20,7 @@ Component containing a generic MembershipProvider and RoleProvider for LDAP . Th
 
 == [nJupiterDataAccessUsers nJupiter.DataAccess.Users] ==
 
-A component to manage users and user data. It can handle complex property structures and is also able to divide user properties in different contexts. The component has a default implementation for SQL Server but can also be tied to an LDAP (by using the UsersDAO implementation in nJupiter.DataAccess.Users.DirectoryService) or you can also bind it to any other data source by implementing your own UsersDAO. The assembly also contain implementations for ProfileProvider and MembershipProvider implemmentations, for example the HybridMembershipProvider that makes it possible to wrap another MembershipProvider with a database user.
+A component to manage users and user data. It can handle complex property structures and is also able to divide user properties in different contexts. The component has a default implementation for SQL Server but can also be tied to an LDAP (by using the UsersDAO implementation in [http://code.google.com/p/njupiter/source/browse/#svn/trunk/Development/nJupiter.DataAccess.Users.DirectoryService nJupiter.DataAccess.Users.DirectoryService]) or you can also bind it to any other data source by implementing your own UsersDAO. The assembly also contain implementations for ProfileProvider and MembershipProvider implemmentations, for example the HybridMembershipProvider that makes it possible to wrap another MembershipProvider with a database user.
 
 == [nJupiterDrawing nJupiter.Drawing] ==
 
@@ -28,7 +28,7 @@ A small component that currently only contains some functions for image scaling.
 
 == [nJupiterGlobalization nJupiter.Globalization] ==
 
-A small component that contains a date handler to manage week numbers like the ISO 8601 standard and a culture factory for CultureInfo object that can easly be configured via nJupiter.Configuration in the System.config file.
+A small component that contains a date handler to manage week numbers like the ISO 8601 standard and a culture factory for CultureInfo object that can easly be configured via nJupiter.Configuration in the [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/System.config System.config] file.
 
 == [nJupiterIO nJupiter.IO] ==
 
@@ -40,7 +40,7 @@ A messaging broker that can handle subscribers and subscriptions over a web serv
 
 == [nJupiterServicesForum nJupiter.Services.Forum] ==
 
-A forum engine with a default SQL Server implementation. The nJupiter.Services.Forum.UI assembly also contains front-end example implementations for ASP.NET.
+A forum engine with a default SQL Server implementation. The [http://code.google.com/p/njupiter/source/browse/#svn/trunk/Development/nJupiter.Services.Forum.UI nJupiter.Services.Forum.UI] assembly also contains front-end example implementations for ASP.NET.
 
 == [nJupiterText nJupiter.Text] ==
 
@@ -48,7 +48,7 @@ A small component containing methods for Quoted Printable encoding and decoding 
 
 == [nJupiterTextSimpleTextParser nJupiter.Text.SimpleTextParser] ==
 
-A very simple text parser that currently contains implementations to format a text with a set of configurable regular exceptions. It is also very easy to extend with new formatters by implementing the IFormatter interface. The component currently has example configuration for converting BBCode to XHTML (look in nJupiter.Text.SimpleTextParser.config).
+A very simple text parser that currently contains implementations to format a text with a set of configurable regular exceptions. It is also very easy to extend with new formatters by implementing the IFormatter interface. The component currently has example configuration for converting BBCode to XHTML (look in [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.Text.SimpleTextParser.config nJupiter.Text.SimpleTextParser.config]).
 
 == [nJupiterWeb nJupiter.Web] ==
 
