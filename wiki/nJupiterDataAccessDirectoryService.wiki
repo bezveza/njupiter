@@ -1,0 +1,20 @@
+#summary Documentation for nJupiter.DataAccess.DirectoryService
+
+<wiki:toc max_depth="2" />
+
+= nJupiter.DataAccess.DirectoryService =
+
+A façade around the System.DirectoryServices with the possibility to use either an adapter that communicate directly to the directory or another adapter that can propagate an LDAP or an Active Directory via a web service.
+
+== Dependencies ==
+
+  * [nJupiterConfiguration nJupiter.Configuration]
+  * [http://logging.apache.org/log4net/index.html log4net]
+
+== How to use ==
+
+Soon to come
+
+== Examples ==
+
+Soon to come
