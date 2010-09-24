@@ -1,0 +1,19 @@
+#summary Documentation for nJupiter.DataAccess.Ldap
+<wiki:toc max_depth="2" />
+
+= nJupiter.DataAccess.Ldap =
+
+Component containing a generic MembershipProvider and RoleProvider for LDAP . These providers has been tested with Microsoft Active Directory, Novell eDirectory and IBM Lotus Domino / IBM Tivoli Directory Server.
+
+== Dependencies ==
+
+  * [nJupiterConfiguration nJupiter.Configuration]
+  * [http://logging.apache.org/log4net/index.html log4net]
+
+== How to use ==
+
+Soon to come
+
+== Examples ==
+
+Soon to come
