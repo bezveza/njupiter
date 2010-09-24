@@ -1,0 +1,19 @@
+#summary Documentation for nJupiter.Globalization
+
+<wiki:toc max_depth="2" />
+
+= nJupiter.Globalization =
+
+A small component that contains a date handler to manage week numbers like the ISO 8601 standard and a culture factory for CultureInfo object that can easly be configured via nJupiter.Configuration in the [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/System.config System.config] file.
+
+== Dependencies ==
+
+  * [nJupiterConfiguration nJupiter.Configuration]
+
+== How to use ==
+
+Soon to come
+
+== Examples ==
+
+Soon to come
