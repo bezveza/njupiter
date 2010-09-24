@@ -1,3 +1,75 @@
 = Component Overview =
 
-Soon to be added.
+nJupiter is an open source umbrella of projects which aims to simplify the development of .NET applications. nJupiter offering a set of tools that you can use either independently or together with each other in your own projects. Here is a brief overview of all the components currently in nJupiter (click on the heading for a deeper explanation of every component, and for examples how to use them):
+
+== [nJupiter.Configuration] ==
+
+Component for easy management of XML configuration files. Make it easy to fast add  different configurations for your assemblies and components. Automatically adds file watchers to local files so configuration can be updated without restarting the application.
+
+== [nJupiter.DataAccess] ==
+
+Data access abstraction with adapters for SQL Server, ODBC, OleDB and Oracle especially written to make it easier to sitch between different data sources and make it easier to handle transactions.
+
+== [nJupiter.DataAccess.DirectoryService] ==
+
+A façade around the System.DirectoryServices with the possibility to use either an adapter that communicate directly to the directory or another adapter that can propagate an LDAP or an Active Directory via a web service.
+
+== [nJupiter.DataAccess.Ldap] ==
+
+Component containing a generic MembershipProvider and RoleProvider for LDAP . These providers has been tested with Microsoft Active Directory, Novell eDirectory and IBM Lotus Domino / IBM Tivoli Directory Server.
+
+== [nJupiter.DataAccess.Users] ==
+
+A component to manage users and user data. It can handle complex property structures and is also able to divide user properties in different contexts. The component has a default implementation for SQL Server but can also be tied to an LDAP (by using the UsersDAO implementation in nJupiter.DataAccess.Users.DirectoryService) or you can also bind it to any other data source by implementing your own UsersDAO. The assembly also contain implementations for ProfileProvider and MembershipProvider implemmentations, for example the HybridMembershipProvider that makes it possible to wrap another MembershipProvider with a database user.
+
+== [nJupiter.Drawing] ==
+
+A small component that currently only contains some functions for image scaling.
+
+== [nJupiter.Globalization] ==
+
+A small component that contains a date handler to manage week numbers like the ISO 8601 standard and a culture factory for CultureInfo object that can easly be configured via nJupiter.Configuration in the System.config file.
+
+== [nJupiter.IO] ==
+
+This component contains some methods for dealing with MIME types and a few old and obsolete classes. This component will most likely be removed or refactored in later versions of nJupiter so avoid using it.
+
+== [nJupiter.Messaging] ==
+
+A messaging broker that can handle subscribers and subscriptions over a web service hub.
+
+== [nJupiter.Services.Forum] ==
+
+A forum engine with a default SQL Server implementation. The nJupiter.Services.Forum.UI assembly also contains front-end example implementations for ASP.NET.
+
+== [nJupiter.Text] ==
+
+A small component containing methods for Quoted Printable encoding and decoding and methods for detecting if a string is Ascii or Ansi.
+
+== [nJupiter.Text.SimpleTextParser] ==
+
+A very simple text parser that currently contains implementations to format a text with a set of configurable regular exceptions. It is also very easy to extend with new formatters by implementing the IFormatter interface. The component currently has example configuration for converting BBCode to XHTML (look in nJupiter.Text.SimpleTextParser.config).
+
+== [nJupiter.Web] ==
+
+Contains methods for easier management of query strings, accepted types, mime type objects and permanent redirects. Some of these will probably be obsolete as a result of new versions of. NET.
+
+== [nJupiter.Web.Syndication] ==
+
+Contains a Feed Reader for parsing RSS (version 0.9 to 2.0) and Atom into an object model, also contains writers for RSS 2.0 and Atom. Can be very handy if you very easily want to problematically create or read a stream with an RSS or Atom feed.
+
+== [nJupiter.Web.UI] ==
+
+Contains Control Adapters for striping ugly content that ASP.NET is generating by default (for example unnecessary id-attributes),  also contains a set o web controls that either is not represented in ASP.NET or that extend the functionality of the native controls. The component also have extended functionality for registering scripts to your page and to find controls by type rather than name and also a set of string constants that contains the most commonly used HTML entities.
+
+== [nJupiter.Web.UI.CssCompressor] ==
+
+A very simple CSS Compressor mainly made to address the issue that Internet Explorer can not handle nested imports in more than three steps. This compressor merge imported CSS-files into one single file.
+
+== [nJupiter.Web.UI.EmailObfuscator] ==
+
+An HttpModule that adds an HttpResponse Filter that obfuscates all email addresses in an (X)HTML supplied through the Http Context. As long as the client web browser has Javascript enabled the user doesn't notice much difference, when javascript is disabled an image containing the email address is presented to the user.
+
+== [nJupiter.Web.UI.GoogleAnalytics] ==
+
+A small web control used to generate GoogleAnalytics code on your ASP.NET page. Supports transactions and campain terms.
