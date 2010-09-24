@@ -1,7 +1,5 @@
 = Component Overview =
 
-<wiki:toc max_depth="2" />
-
 == Introduction ==
 
 nJupiter is an open source umbrella of projects which aims to simplify the development of .NET applications. nJupiter offering a set of tools that you can use either independently or together with each other in your own projects. Here is a brief overview of all the components currently in nJupiter (click on the heading for a deeper explanation of every component, and for examples how to use them):
