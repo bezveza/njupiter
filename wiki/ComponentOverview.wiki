@@ -6,7 +6,7 @@ nJupiter is an open source umbrella of projects which aims to simplify the devel
 
 == [nJupiterConfiguration nJupiter.Configuration] ==
 
-Component for easy management of XML configuration files. Make it easy to fast add  different configurations for your assemblies and components. Automatically adds file watchers to local files so configuration can be updated without restarting the application.
+Component for easy management of XML configuration files. It makes it easy to fast add  different configurations for your assemblies and components. Automatically adds file watchers to local files so configuration can be updated without restarting the application.
 
 == [nJupiterDataAccess nJupiter.DataAccess] ==
 
