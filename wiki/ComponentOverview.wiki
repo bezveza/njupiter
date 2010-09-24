@@ -40,6 +40,10 @@ This component contains some methods for dealing with MIME types and a few old a
 
 A messaging broker that can handle subscribers and subscriptions over a web service hub.
 
+== [nJupiterNetMail nJupiter.Net.Mail] ==
+
+Very simple and small implementation of an SMTP client and Standard Arpa Internet Message defined in RFC822.
+
 == [nJupiterServicesForum nJupiter.Services.Forum] ==
 
 A forum engine with a default SQL Server implementation. The [http://code.google.com/p/njupiter/source/browse/#svn/trunk/Development/nJupiter.Services.Forum.UI nJupiter.Services.Forum.UI] assembly also contains front-end example implementations for ASP.NET.
