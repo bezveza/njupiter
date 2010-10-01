@@ -1,0 +1,19 @@
+#summary Documentation for nJupiter.Web.UI.EmailObfuscator
+
+<wiki:toc max_depth="2" />
+
+= nJupiter.Web.UI.EmailObfuscator =
+
+An HttpModule that adds an HttpResponse Filter that obfuscates all email addresses in an (X)HTML supplied through the Http Context. As long as the client web browser has Javascript enabled the user doesn't notice much difference, when javascript is disabled an image containing the email address is presented to the user.
+
+== Dependencies ==
+
+  * None except .NET 
+
+== How to use ==
+
+Soon to come
+
+== Examples ==
+
+Soon to come
