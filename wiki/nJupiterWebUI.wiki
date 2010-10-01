@@ -1,0 +1,21 @@
+#summary Documentation for nJupiter.Web.UI
+
+<wiki:toc max_depth="2" />
+
+= nJupiter.Web.UI =
+
+Contains Control Adapters for striping ugly content that ASP.NET is generating by default (for example unnecessary id-attributes),  also contains a set o web controls that either is not represented in ASP.NET or that extend the functionality of the native controls. The component also have extended functionality for registering scripts to your page and to find controls by type rather than name and also a set of string constants that contains the most commonly used HTML entities.
+
+== Dependencies ==
+
+  * [nJupiterConfiguration nJupiter.Configuration]
+  * [nJupiterDrawing nJupiter.Drawing]
+  * [nJupiterWeb nJupiter.Web]
+
+== How to use ==
+
+Soon to come
+
+== Examples ==
+
+Soon to come
