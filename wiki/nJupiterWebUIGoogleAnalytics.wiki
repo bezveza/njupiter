@@ -1,0 +1,19 @@
+#summary Documentation for nJupiter.Web.UI.GoogleAnalytics
+
+<wiki:toc max_depth="2" />
+
+= nJupiter.Web.UI.GoogleAnalytics =
+
+A small web control used to generate GoogleAnalytics code on your ASP.NET page. Supports transactions and campain terms.
+
+== Dependencies ==
+
+  * [nJupiterConfiguration nJupiter.Configuration]
+
+== How to use ==
+
+Soon to come
+
+== Examples ==
+
+Soon to come
