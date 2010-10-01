@@ -24,8 +24,8 @@ The first thing you have to do is to set up where nJupiter.Configuration shall l
 
 {{{
 <configSections>
-	<section	name="nJupiterConfiguration"
-				type="nJupiter.Configuration.nJupiterConfigurationSectionHandler, nJupiter.Configuration" />
+   <section name="nJupiterConfiguration"
+            type="nJupiter.Configuration.nJupiterConfigurationSectionHandler, nJupiter.Configuration" />
 </configSections>
 }}}
 
@@ -33,10 +33,10 @@ You then have to add configuration that tells nJupiter.Configuration whre to loo
 
 {{{
 <nJupiterConfiguration>
-	<configDirectories>
-		<configDirectory value="~/Config"/>
-		<configDirectory value="c:\MyOtherConfigs"/>		
-	</configDirectories>
+   <configDirectories>
+      <configDirectory value="~/Config"/>
+      <configDirectory value="c:\MyOtherConfigs"/>      
+   </configDirectories>
 </nJupiterConfiguration>
 }}}
 
