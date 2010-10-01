@@ -1,0 +1,23 @@
+#summary Documentation for nJupiter.Services.Forum
+
+<wiki:toc max_depth="2" />
+
+= nJupiter.Services.Forum =
+
+A forum engine with a default SQL Server implementation. The [http://code.google.com/p/njupiter/source/browse/#svn/trunk/Development/nJupiter.Services.Forum.UI nJupiter.Services.Forum.UI] assembly also contains front-end example implementations for ASP.NET.
+
+== Dependencies ==
+
+  * [nJupiterConfiguration nJupiter.Configuration]
+  * [nJupiterDataAccess nJupiter.DataAccess]
+  * [nJupiterWeb nJupiter.Web]
+  * [nJupiterWebUI nJupiter.Web.UI]
+  * [http://logging.apache.org/log4net/index.html log4net]
+
+== How to use ==
+
+Soon to come
+
+== Examples ==
+
+Soon to come
