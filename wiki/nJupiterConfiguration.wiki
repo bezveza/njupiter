@@ -24,7 +24,8 @@ The first thing you have to do is to set up where nJupiter.Configuration shall l
 
 {{{
 <configSections>
-	<section name="nJupiterConfiguration" type="nJupiter.Configuration.nJupiterConfigurationSectionHandler, nJupiter.Configuration" />
+	<section	name="nJupiterConfiguration"
+				type="nJupiter.Configuration.nJupiterConfigurationSectionHandler, nJupiter.Configuration" />
 </configSections>
 }}}
 
