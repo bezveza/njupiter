@@ -61,13 +61,13 @@ A very simple text parser that currently contains implementations to format a te
 
 Contains methods for easier management of query strings, accepted types, mime type objects and permanent redirects. Some of these will probably be obsolete as a result of new versions of. NET.
 
-== [nJupiterWebSyndication nJupiter.Web.Syndication] ==
-
-Contains a Feed Reader for parsing RSS (version 0.9 to 2.0) and Atom into an object model, also contains writers for RSS 2.0 and Atom. Can be very handy if you very easily want to problematically create or read a stream with an RSS or Atom feed.
-
 == [nJupiterWebUI nJupiter.Web.UI] ==
 
 Contains Control Adapters for striping ugly content that ASP.NET is generating by default (for example unnecessary id-attributes),  also contains a set o web controls that either is not represented in ASP.NET or that extend the functionality of the native controls. The component also have extended functionality for registering scripts to your page and to find controls by type rather than name and also a set of string constants that contains the most commonly used HTML entities.
+
+== [nJupiterWebSyndication nJupiter.Web.Syndication] ==
+
+Contains a Feed Reader for parsing RSS (version 0.9 to 2.0) and Atom into an object model, also contains writers for RSS 2.0 and Atom. Can be very handy if you very easily want to problematically create or read a stream with an RSS or Atom feed.
 
 == [nJupiterWebUICssCompressor nJupiter.Web.UI.CssCompressor] ==
 
