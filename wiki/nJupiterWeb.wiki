@@ -1,0 +1,19 @@
+#summary Documentation for nJupiter.Web
+
+<wiki:toc max_depth="2" />
+
+= nJupiter.Web =
+
+Contains methods for easier management of query strings, accepted types, mime type objects and permanent redirects. Some of these will probably be obsolete as a result of new versions of. NET.
+
+== Dependencies ==
+
+  * None except .NET 
+
+== How to use ==
+
+Soon to come
+
+== Examples ==
+
+Soon to come
