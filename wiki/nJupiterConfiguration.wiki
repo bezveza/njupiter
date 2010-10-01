@@ -77,7 +77,7 @@ So now, lets take a look how to read some config values. First we have to add so
 {{{
 <configuration>
    <myConfigSection>
-      <myConfigElement myInteger="23" value="myValue">
+      <myConfigElement myInteger="242" value="myValue">
          <myString>String 1</myString>
          <myString>String 2</myString>
 		 <myString>String 3</myString>
@@ -88,10 +88,21 @@ So now, lets take a look how to read some config values. First we have to add so
 </configuration>
 }}}
 
+And here is some examples of how to get some config values from that XML:
+
 {{{
 Config config = ConfigHandler.GetConfig();
+//return the string "myValue"
 string myValue = config.GetValue("myConfigSection", "myConfigElement");
+//return the integer 242
 int myAttriubte = config.GetIntAttribute("myConfigSection", "myConfigElement", "myInteger");
-string[] myArray = config.GetValueArray ("myConfigSection/myConfigElement", "myString");
+//return a string array with the strings "String 1", "String 2" and "String 3".
+string[] myArray = config.GetValueArray("myConfigSection/myConfigElement", "myString");
+ //return the string "Hello World"
 string helloWorld = config.GetValue("myConfigSection", "anotherConfigElement[@myAttribute='true']");
 }}}
+
+
+The GetValue-methods takes a key and/or a section as input paramters, where the section is the path to the element you want to get and the key us the element's name. GetAttributeValue also have the input parameter attribute that represent the name of the attribute you want to operate on. You can also always use XPath in all thouse parameters.
+
+The GetValue-methods always first try to find an attribute with the name "value", if no such attribute is found the value of the content element is returned.
