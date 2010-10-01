@@ -29,15 +29,15 @@ The last thing you have to do is to configure your web.config to use nJupiter.Da
       <providers>
          <clear/>
          <add name="LdapMembershipProvider"
-		      ldapServer="Tivoli"
-			  type="nJupiter.DataAccess.Ldap.LdapMembershipProvider,nJupiter.DataAccess.Ldap" />
+              ldapServer="Tivoli"
+              type="nJupiter.DataAccess.Ldap.LdapMembershipProvider,nJupiter.DataAccess.Ldap" />
       </providers>
    </membership>
    <roleManager enabled="true" defaultProvider="LdapRoleProvider" cacheRolesInCookie="true">
       <providers>
          <clear/>
          <add name="LdapRoleProvider"
-			  ldapServer="Tivoli"
+              ldapServer="Tivoli"
               type="nJupiter.DataAccess.Ldap.LdapRoleProvider,nJupiter.DataAccess.Ldap" />
       </providers>
    </roleManager>
