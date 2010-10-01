@@ -1,0 +1,19 @@
+#summary Documentation for nJupiter.Web.Syndication
+
+<wiki:toc max_depth="2" />
+
+= nJupiter.Web.Syndication =
+
+Contains a Feed Reader for parsing RSS (version 0.9 to 2.0) and Atom into an object model, also contains writers for RSS 2.0 and Atom. Can be very handy if you very easily want to problematically create or read a stream with an RSS or Atom feed.
+
+== Dependencies ==
+
+  * None except .NET 
+
+== How to use ==
+
+Soon to come
+
+== Examples ==
+
+Soon to come
