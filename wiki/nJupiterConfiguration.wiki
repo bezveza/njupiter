@@ -4,7 +4,7 @@
 
 = nJupiter.Configuration =
 
-nJupiter.Configuration is a component for easy management of XML configuration files. Make it easy to fast add different configurations for your assemblies and components. Automatically adds file watchers to local files so configuration can be updated without restarting the application. 
+nJupiter.Configuration is a component for easy management of XML configuration files. It makes it easy to fast add different configurations for your assemblies and components. Automatically adds file watchers to local files so configuration can be updated without restarting the application. 
 
 == Dependencies ==
 
