@@ -1,19 +1,58 @@
 #summary Documentation for nJupiter.DataAccess.Ldap
+
 <wiki:toc max_depth="2" />
 
 = nJupiter.DataAccess.Ldap =
 
 Component containing a generic MembershipProvider and RoleProvider for LDAP . These providers has been tested with Microsoft Active Directory, Novell eDirectory and IBM Lotus Domino / IBM Tivoli Directory Server.
 
+== History and Purpose ==
+
+Awhile ago [http://code.google.com/u/martin.odhelius/ I] started to work in a project that had the goal to use a CMS that were using .NET's MembershipProvider and RoleProvider architecture for authentication and user management. The customer that would use the CMS solution used an IBM Tivoli LDAP Directory Server and first I thought that would not be any problems since I was prety sure that it would exist a LDAP MembershipProvider and RoleProvider in the .NET framework, but to my surprise it didn't! Then I started to look around the web for alternatives but I didn't find any LDAP MembershipProvider and RoleProvider anywhere so I decided to write my own. My aims was to write a generic LDAP provider that should work both with my internal Active Directory test server and together with the customer's Tivoli server or with any other LDAP server out there, the result was nJupiter.DataAccess.Ldap.
+
 == Dependencies ==
 
   * [nJupiterConfiguration nJupiter.Configuration]
   * [http://logging.apache.org/log4net/index.html log4net]
+  
+== How to set up nJupiter.DataAccess.Ldap ==
+
+nJupiter.DataAccess.Ldap make use of [nJupiterConfiguration nJupiter.Configuration] so the first thing you have to do is to set up nJupiter.Configuration in your web.config. You can find more information how to do that [http://code.google.com/p/njupiter/wiki/nJupiterConfiguration#How_to_set_up_nJupiter.Configuration here].
+
+The next thing you have to do is to add a nJupiter.DataAccess.Ldap.config-file to your configuration directory. You can find example configurations how to configure your server  [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config here]. This configuration is hopefully pretty straight forward. The only configuration values that can maybe be a little hard to understand are the values in the attributes-collection, these are LDAP attributes that shall be loaded together with the LdapMembershipUser and also the attributes in which the membership provider will search in when you use the FindUsersByName-method. The authenticationTypes represents the System.DirectoryServices.AuthenticationTypes in .NET. Also note that it is the provider with the default="true" attribute that is going to be used as your default provider if you do not set anything else in ldapServer attribute in the membership or roleManager configuration in your web.config.
+
+The last thing you have to do is to configure your web.config to use nJupiter.DataAccess.Ldap. Here is an example:
+
+{{{
+<system.web>
+   <membership defaultProvider="LdapMembershipProvider">
+      <providers>
+         <clear/>
+         <add name="LdapMembershipProvider"
+		      ldapServer="Tivoli"
+			  type="nJupiter.DataAccess.Ldap.LdapMembershipProvider,nJupiter.DataAccess.Ldap" />
+      </providers>
+   </membership>
+   <roleManager enabled="true" defaultProvider="LdapRoleProvider" cacheRolesInCookie="true">
+      <providers>
+         <clear/>
+         <add name="LdapRoleProvider"
+			  ldapServer="Tivoli"
+              type="nJupiter.DataAccess.Ldap.LdapRoleProvider,nJupiter.DataAccess.Ldap" />
+      </providers>
+   </roleManager>
+</system.web>
+}}}
+
+The ldapServer attribute tells which ldap configuration in nJupiter.DataAccess.Ldap.config to use, if this attribute is left out the configuration with the default="true" attribute will be used. If you need more information how to configure MembershipProviders and RoleProviders you can find it here:
+
+  * [http://msdn.microsoft.com/en-us/library/ff648345.aspx How To: Use Membership in ASP.NET 2.0]
+  * [http://msdn.microsoft.com/en-us/library/ff647401.aspx How To: Use Role Manager in ASP.NET 2.0]
+  * [http://msdn.microsoft.com/en-us/library/1b9hw62f.aspx membership Element (ASP.NET Settings Schema)]
+  * [http://msdn.microsoft.com/en-us/library/ms164660.aspx roleManager Element (ASP.NET Settings Schema)]
 
 == How to use ==
 
-Soon to come
+The LdapMembershipProvider and LdapRoleProvider are working like standard MembershipProviders and RoleProviders, the providers are read only though and does not implement any functionality that writes information to the LDAP server, besides that you shall be able to use without doing anything more that explained in the previous section.
 
-== Examples ==
-
-Soon to come
+A bonus feature beside the standard provider interface is that the LdapMembershipProvider is able to load LDAP attributes for users besides the standard MembershipUser attributes. Those can be accessible by casting the  MembershipUser to an nJupiter.DataAccess.Ldap.LdapMembershipUser and read the Attributes property.
