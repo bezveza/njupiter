@@ -1,0 +1,19 @@
+#summary Documentation for nJupiter.Web.UI.CssCompressor
+
+<wiki:toc max_depth="2" />
+
+= nJupiter.Web.UI.CssCompressor =
+
+A very simple CSS Compressor mainly made to address the issue that Internet Explorer can not handle nested imports in more than three steps. This compressor merge imported CSS-files into one single file.
+
+== Dependencies ==
+
+  * [nJupiterConfiguration nJupiter.Configuration]
+
+== How to use ==
+
+Soon to come
+
+== Examples ==
+
+Soon to come
