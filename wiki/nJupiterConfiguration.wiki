@@ -18,7 +18,7 @@ nJupiter.Configuration has since then been used in an uncountable number of proj
 
   * [http://logging.apache.org/log4net/index.html log4net]
 
-== How to use ==
+== How to set up nJupiter.Configuration ==
 
 The first thing you have to do is to set up where nJupiter.Configuration shall look for its configuration files, you do this in your app.config or web.config. The first thing you have to do is to add a configuration section
 
@@ -39,13 +39,14 @@ You then have to add configuration that tells nJupiter.Configuration whre to loo
 </nJupiterConfiguration>
 }}}
 
+As you can see you can define several differend configuration directories, if the same configuration file is located in several different directories nJupiter.Configuration will use the first file it finds. It will search the directories from top and down. If you are using nJupiter.Configuration in a web context it is also possible to define the path to the directories with a relative path by adding a tilde (~) before the path, if you do so the path will be located with help of System.Web.HttpContext.Current.Server.MapPath.
+
 You can find a full example of how to configure your web.config [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/web.config here]
+
+== How to use ==
 
 Soon to come
 
 == Examples ==
 
 Soon to come
-
-
-
