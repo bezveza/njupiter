@@ -56,3 +56,13 @@ The ldapServer attribute tells which ldap configuration in nJupiter.DataAccess.L
 The LdapMembershipProvider and LdapRoleProvider are working like standard MembershipProviders and RoleProviders, the providers are read only though and does not implement any functionality that writes information to the LDAP server, besides that you shall be able to use without doing anything more that explained in the previous section.
 
 A bonus feature beside the standard provider interface is that the LdapMembershipProvider is able to load LDAP attributes for users besides the standard MembershipUser attributes. Those can be accessible by casting the  MembershipUser to an nJupiter.DataAccess.Ldap.LdapMembershipUser and read the Attributes property.
+
+== Troubleshooting ==
+
+If you get "System.InvalidOperationException: The value for the property Sort cannot be set", try do disabling property sorting by setting the propertySortingSupport to false in [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config nJupiter.DataAccess.Ldap.config]
+
+If you get "System.InvalidOperationException: The value for the property PageSize cannot be set.", try to disable paging by by either removing the pageSize element entierly or by setting its value to 0 in [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config nJupiter.DataAccess.Ldap.config]
+
+If you get similar exeptions you can also try to turn of the rangeRetrievalSupport by setting its flag to false.
+
+If you get "COMException (0x80005000): Unknown error (0x80005000)" or similar it is probably caused by difference between your authenticationTypes-setting and how your LDAP server is configured. You can read more about how to configure the [http://msdn.microsoft.com/en-us/library/system.directoryservices.authenticationtypes.aspx here].
