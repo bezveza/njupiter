@@ -65,4 +65,4 @@ If you get "System.InvalidOperationException: The value for the property PageSiz
 
 If you get similar exeptions you can also try to turn of the rangeRetrievalSupport by setting its flag to false.
 
-If you get "COMException (0x80005000): Unknown error (0x80005000)" or similar it is probably caused by difference between your authenticationTypes-setting and how your LDAP server is configured. You can read more about how to configure the [http://msdn.microsoft.com/en-us/library/system.directoryservices.authenticationtypes.aspx here].
+If you get "COMException (0x80005000): Unknown error (0x80005000)" or similar it is probably caused by difference between your authenticationTypes-setting and how your LDAP server is configured. You can read more about how to configure the authenticationTypes [http://msdn.microsoft.com/en-us/library/system.directoryservices.authenticationtypes.aspx here].
