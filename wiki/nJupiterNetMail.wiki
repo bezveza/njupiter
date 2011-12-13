@@ -9,8 +9,6 @@ Simple implementation of an SMTP client and Standard Arpa Internet Message defin
 == Dependencies ==
 
   * [nJupiterConfiguration nJupiter.Configuration]
-  * [nJupiterIO nJupiter.IO]
-  * [nJupiterText nJupiter.Text]
   * [nJupiterWeb nJupiter.Web]
   * [http://logging.apache.org/log4net/index.html log4net]
 
