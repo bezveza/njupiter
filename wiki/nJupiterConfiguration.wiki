@@ -4,7 +4,7 @@
 
 = nJupiter.Configuration =
 
-nJupiter.Configuration is a lightweight component for easy management of XML configuration files. It makes it easy to fast add different configurations for your assemblies and components. It automatically adds file watchers to local files so configuration can be updated without restarting the application. 
+nJupiter.Configuration is a lightweight component for easy management of XML configuration files. It makes it easy to fast add different configurations for your assemblies and components. It automatically adds file watchers to local files so configuration can be updated without restarting the application.
 
 == History and Purpose ==
 
@@ -16,11 +16,13 @@ nJupiter.Configuration has since then been used in an uncountable number of proj
 
 == Dependencies ==
 
-  * [http://logging.apache.org/log4net/index.html log4net]
+  * None
 
 == How to set up nJupiter.Configuration ==
 
-The first thing you have to do is to set up where nJupiter.Configuration shall look for its configuration files, you do this in your app.config or web.config. The first thing you have to do is to add a configuration section
+The first thing you have to do is to put the nJupiter.Configuration.dll in the bin folder to your project. By default nJupiter.Configuration will automatically try to recursively load all files with the extension .config in the currenct application directory (the web root if your application execute in a web context).
+
+If your application folder is huge and contain lot of files and folders it can be a good reason to specify exacly which folder the component shall look in to find config files, you can do this in your app.config or web.config. If you want to do this the first thing you have to do is to add a configuration section
 
 {{{
 <configSections>
@@ -33,12 +35,14 @@ You then have to add configuration that tells nJupiter.Configuration where to lo
 
 {{{
 <nJupiterConfiguration>
-   <configDirectories>
+   <configDirectories configSuffix=".config" loadAllConfigFilesOnInit="false">
       <configDirectory value="~/Config"/>
       <configDirectory value="c:\MyOtherConfigs"/>      
    </configDirectories>
 </nJupiterConfiguration>
 }}}
+
+Notice that folders that are explicitly defined is not loaded recursively. Also notice that you here can specify a different extension of the config file if you want to. You can also tell the repository to load all the config files already when the component is loaded by setting loadAllConfigFilesOnInit to true. This can be good if you for example want the config files to be parsed on application start up so you fast can find errors in the files instead of finding them when that are fist accessed.
 
 As you can see you can define several different configuration directories, if the same configuration file is located in several different directories nJupiter.Configuration will use the first file it finds. It will search the directories from top and down. If you are using nJupiter.Configuration in a web context it is also possible to define the path to the directories with a relative path by adding a tilde (~) before the path, if you do so the path will be located with help of System.Web.HttpContext.Current.Server.MapPath.
 
@@ -50,10 +54,16 @@ Currently nJupiter.Configuration only has configuration support for local files 
 
 Here is a short description of how to use nJupiter.Configuration. We do not go through every method here, just the basis. If you need more information, please refer to the API documentation. You can also find lot of examples how to use nJupiter.Configuration in nJupiter itself.
 
-The first thing you have to do is to create a configuration file and put it in one of your configuration directories that you have configured like the descriptions above. nJupiter.Configuration can either get a configuration based on the  name of the calling assembly. If you want to load a configuration file that have the same name as the calling assembly you use the GetConfig without any input parameters, like this:
+The first thing you have to do is to get an instance of the IConfigRepository. The default instance can be accessed via ConfigRepository.Instance like this:
 
 {{{
-Config config = ConfigHandler.GetConfig();
+IConfigRepository configRepository = ConfigRepository.Instance;
+}}}
+
+The next thing you have to do is to create a configuration file and put it in one of your configuration directories that you have configured like the descriptions above. nJupiter.Configuration can either get a configuration based on the  name of the calling assembly. If you want to load a configuration file that have the same name as the calling assembly you use the GetConfig without any input parameters, like this:
+
+{{{
+IConfig config = configRepository.GetConfig();
 }}}
 
 If you for example have an assembly whose name is MyAssembly.dll this code will return a config object that contains configuration from the configuration file with the name MyAssembly.config.
@@ -61,19 +71,19 @@ If you for example have an assembly whose name is MyAssembly.dll this code will 
 If you want to get the configuration object for another assembly than the calling one you can call the GetConfig-method with an assembly:
 
 {{{
-Config config = ConfigHandler.GetConfig(typeof(MyClass).Assembly);
+IConfig config = configRepository.GetConfig(typeof(MyClass).Assembly);
 }}}
 
 You can also get configuration from a configuration file with a custom name by just passing a string to the GetConfig-method. The following example will return a config object from the file MyConfiguration.config:
 
 {{{
-Config config = ConfigHandler.GetConfig("MyConfiguration");
+IConfig config = configRepository.GetConfig("MyConfiguration");
 }}}
 
 For application wide configuration not bound to a specific assembly nJupiter.Configuration also have a configuration file with the fixed name System.config. This configuration file can be fetched like this:
 
 {{{
-Config systemConfig = ConfigHandler.GetSystemConfig()
+IConfig systemConfig = configRepository.GetSystemConfig()
 }}}
 
 If no configuration with the correct name is found an ConfigurationException will be thrown. All the above methods also have an overload where you can pass a boolean suppressMissingConfigException that will suppress this exception and instead return null if no configuration is found.
@@ -86,10 +96,10 @@ So now, lets take a look how to read some config values. First we have to add so
       <myConfigElement myInteger="242" value="myValue">
          <myString>String 1</myString>
          <myString>String 2</myString>
-		 <myString>String 3</myString>
+         <myString>String 3</myString>
       </myConfigElement>
-	  <anotherConfigElement myAttribute="true">Hello World</anotherConfigElement>
-	  <anotherConfigElement myAttribute="false">Goodbye World</anotherConfigElement>
+      <anotherConfigElement myAttribute="true">Hello World</anotherConfigElement>
+      <anotherConfigElement myAttribute="false">Goodbye World</anotherConfigElement>
    </myConfigSection>
 </configuration>
 }}}
@@ -97,11 +107,11 @@ So now, lets take a look how to read some config values. First we have to add so
 And here is some examples of how to get some config values from that XML:
 
 {{{
-Config config = ConfigHandler.GetConfig();
+IConfig config = configRepository.GetConfig();
 //return the string "myValue"
 string myValue = config.GetValue("myConfigSection", "myConfigElement");
 //return the integer 242
-int myAttriubte = config.GetIntAttribute("myConfigSection", "myConfigElement", "myInteger");
+int myAttriubte = config.GetAttribute<int>("myConfigSection", "myConfigElement", "myInteger");
 //return a string array with the strings "String 1", "String 2" and "String 3".
 string[] myArray = config.GetValueArray("myConfigSection/myConfigElement", "myString");
  //return the string "Hello World"
@@ -115,32 +125,42 @@ The GetValue-methods always first try to find an attribute with the name "value"
 
 If no matching XML element or attribute is found a ConfigValueNotFoundException will be thrown. To avoid such an exception you can always check if the configuration value you will try to read exists by using the ContainsKey- or   ContainsAttribute-methods.
 
+Notice that the GetValue, GetAttribute, GetValueArray and GetAttributeArray methods all support generics and can parse all types that have a System.ComponentModel.TypeDescriptor-converter (which means almost all primitive generic types like boolean, date, int etc).
+
+{{{
+string myDate = config.GetValue<DateTime>("myDate");
+string myBool = config.GetAttribute<bool>("myElement", "boolAttribute");
+string myInt = config.GetValue<int>("myInt");
+}}}
+
 You can also always operate directly on the XML associated by the configuration by accessing it through the ConfigXML property like this:
 
 {{{
-System.Xml.XmlElement xmlElement = config.ConfigXML;
+System.Xml.XmlElement xmlElement = config.ConfigXml;
 }}}
 
 If you want to operate on a smaller set of the configuration you can also get a config object for just a part of the XML by using the GetConfigSection-method.
 
-Another good thing to know about is that nJupiter.Configuration caches all it's configurations in memory but will try to drop them automatically when the files are changed. nJupiter.Configuration does this by adding file watchers for all local configuration files. Even if nJupiter.Configuration caches it's configurations they are always stored as XML objects in memory and every time you need to get a value from the configuration an XPath will be preformed, therefor it can, for very performance critical application, be a good reason to also store the configuration values locally in your objects instead of reading them every time you need them, one good thing to know in those situations is that when a Config object is dropped from cache its Disposed will be triggered, so by subscribing on that event you will be able to update your locally stored values when the configuration files are updated, like in the example below:
+Another good thing to know about is that nJupiter.Configuration caches all it's configurations in memory but will try to drop them automatically when the configurations are changed (if the config object has a IConfigSourceWatcher). In the default implementation all config files on disk get a FileConfigSourceWatcher that will add file watchers for all local configuration files and tell the repository to drop its config when thous files are updated. If you of some reason store values from a configuration in your own variables and want to update thous when the configuration object is updated you can do this by subscribing to the Discarded event on the original configuration object, like in the example below:
 
 {{{
-public static class Configuration {
+public class CurrentForumId {
    
-   private static readonly object padLock = new object();
-   private static int defaultForumId;
+   private readonly IConfigRepository configRepository;
+   private int defaultForumId;
 
-   static Configuration() { Configuration.Configure(null, EventArgs.Empty); }
-   public int DefaultForumId{ get{ return defaultForumId; } }
+   public ForumLoder(IConfigRepository configRepository) {
+      this.configRepository = configRepository;
+      this.Configure(null, EventArgs.Empty);
+   }
+   
+   public int Id{ get{ return defaultForumId; } }
 
-   private static void Configure(object sender, EventArgs e) {
-      lock (padLock) {
-         Config config = ConfigHandler.GetConfig();
-         if (config != null) {
-            defaultForumId = config.GetIntValue("community/general", "DefaultForumId");
-            config.Disposed += Configuration.Configure;
-         }
+   private void Configure(object sender, EventArgs e) {
+      var config = configRepository.GetConfig();
+      if (config != null) {
+        defaultForumId = config.GetValue<int>("community/general", "defaultForumId");
+        config.Discarded += this.Configure;
       }
    }
 }
