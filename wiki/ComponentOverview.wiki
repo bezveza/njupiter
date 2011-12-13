@@ -11,7 +11,7 @@ Component for easy management of XML configuration files. It makes it easy to fa
 
 == [nJupiterDataAccess nJupiter.DataAccess] ==
 
-Data access abstraction with adapters for SQL Server, ODBC, OleDB and Oracle especially written to make it easier to sitch between different data sources and make it easier to handle transactions.
+Data access facade for System.Data especially written to make it easier to create and call commands and to handle transactions. 
 
 == [nJupiterDataAccessLdap nJupiter.DataAccess.Ldap] ==
 
