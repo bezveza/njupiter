@@ -1,8 +1,11 @@
 #summary Documentation for nJupiter.IO
+#labels Deprecated
 
 <wiki:toc max_depth="2" />
 
 = nJupiter.IO =
+
+*NOTICE:* This component was depricated and removed in version 4.0.0. MIME type code was moved to [nJupiterWeb nJupiter.Web]
 
 
 This component contains some methods for dealing with MIME types and a few old and obsolete classes. This component will most likely be removed or refactored in later versions of nJupiter so avoid using it.
