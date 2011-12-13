@@ -1,8 +1,11 @@
 #summary Documentation for nJupiter.Drawing
+#labels Deprecated
 
 <wiki:toc max_depth="2" />
 
 = nJupiter.Drawing =
+
+*NOTICE:* This component was depricated and removed in version 4.0.0
 
 A small component that currently only contains some functions for image scaling.
 
