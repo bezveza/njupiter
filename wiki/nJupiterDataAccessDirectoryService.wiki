@@ -1,8 +1,11 @@
 #summary Documentation for nJupiter.DataAccess.DirectoryService
+#labels Deprecated
 
 <wiki:toc max_depth="2" />
 
 = nJupiter.DataAccess.DirectoryService =
+
+*NOTICE:* All code in this component was moved to [http://code.google.com/p/njupiter/source/browse/#svn/trunk/Development/nJupiter.DataAccess.Users.DirectoryService nJupiter.DataAccess.Users.DirectoryService] in version 4.0.0.
 
 A façade around the System.DirectoryServices with the possibility to use either an adapter that communicate directly to the directory or another adapter that can propagate an LDAP or an Active Directory via a web service.
 
