@@ -4,7 +4,7 @@
 
 = nJupiter.DataAccess.Users =
 
-A component to manage users and user data. It can handle complex property structures and is also able to divide user properties in different contexts. The component has a default implementation for SQL Server but can also be tied to an LDAP (by using the UsersDAO implementation in [http://code.google.com/p/njupiter/source/browse/#svn/trunk/Development/nJupiter.DataAccess.Users.DirectoryService nJupiter.DataAccess.Users.DirectoryService]) or you can also bind it to any other data source by implementing your own UsersDAO. The assembly also contain implementations for ProfileProvider and MembershipProvider implemmentations, for example the HybridMembershipProvider that makes it possible to wrap another MembershipProvider with a database user.
+A component to manage users and user data. It can handle complex property structures and is also able to divide user properties in different contexts. The component has a default implementation for SQL Server but can also be tied to an LDAP (by using the IUserRepository implementation in [http://code.google.com/p/njupiter/source/browse/#svn/trunk/Development/nJupiter.DataAccess.Users.DirectoryService nJupiter.DataAccess.Users.DirectoryService]) or you can also bind it to any other data source by implementing your own IUserRepository. The assembly also contain implementations for ProfileProvider and MembershipProvider implemmentations, for example the HybridMembershipProvider that makes it possible to wrap another MembershipProvider with a database user.
 
 == Dependencies ==
 
