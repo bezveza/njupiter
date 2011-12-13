@@ -129,8 +129,8 @@ Notice that the GetValue, GetAttribute, GetValueArray and GetAttributeArray meth
 
 {{{
 string myDate = config.GetValue<DateTime>("myDate");
-string myBool = config.GetAttribute<bool>("myElement", "boolAttribute");
-string myInt = config.GetValue<int>("myInt");
+bool myBool = config.GetAttribute<bool>("myElement", "boolAttribute");
+int  myInt = config.GetValue<int>("myInt");
 }}}
 
 You can also always operate directly on the XML associated by the configuration by accessing it through the ConfigXML property like this:
