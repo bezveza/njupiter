@@ -1,15 +1,18 @@
 #summary Documentation for nJupiter.Messaging
+#labels Deprecated
 
 <wiki:toc max_depth="2" />
 
 = nJupiter.Messaging =
+
+*NOTICE:* This component was depricated and removed in version 4.0.0.
 
 A messaging broker that can handle subscribers and subscriptions over a web service hub. 
 
 == Dependencies ==
 
   * [nJupiterConfiguration nJupiter.Configuration]
-  * [nJupiterNetMail nJupiter.Net.Mail
+  * [nJupiterNetMail nJupiter.Net.Mail]
   * [http://logging.apache.org/log4net/index.html log4net]
 
 == How to use ==
