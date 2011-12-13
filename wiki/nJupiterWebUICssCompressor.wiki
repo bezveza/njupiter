@@ -1,8 +1,11 @@
 #summary Documentation for nJupiter.Web.UI.CssCompressor
+#labels Deprecated
 
 <wiki:toc max_depth="2" />
 
 = nJupiter.Web.UI.CssCompressor =
+
+*NOTICE:* This component was depricated and removed in version 4.0.0.
 
 A very simple CSS Compressor mainly made to address the issue that Internet Explorer can not handle nested imports in more than three steps. This compressor merge imported CSS-files into one single file.
 
