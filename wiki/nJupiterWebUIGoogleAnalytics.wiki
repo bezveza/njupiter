@@ -1,8 +1,11 @@
 #summary Documentation for nJupiter.Web.UI.GoogleAnalytics
+#labels Deprecated
 
 <wiki:toc max_depth="2" />
 
 = nJupiter.Web.UI.GoogleAnalytics =
+
+*NOTICE:* This component was depricated and removed in version 4.0.0.
 
 A small web control used to generate GoogleAnalytics code on your ASP.NET page. Supports transactions and campain terms.
 
