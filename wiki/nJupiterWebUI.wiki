@@ -9,7 +9,6 @@ Contains Control Adapters for striping ugly content that ASP.NET is generating b
 == Dependencies ==
 
   * [nJupiterConfiguration nJupiter.Configuration]
-  * [nJupiterDrawing nJupiter.Drawing]
   * [nJupiterWeb nJupiter.Web]
 
 == How to use ==
