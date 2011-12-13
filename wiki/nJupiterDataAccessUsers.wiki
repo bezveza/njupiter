@@ -9,8 +9,6 @@ A component to manage users and user data. It can handle complex property struct
 == Dependencies ==
 
   * [nJupiterConfiguration nJupiter.Configuration]
-  * [nJupiterDataAccess nJupiter.DataAccess]
-  * [http://logging.apache.org/log4net/index.html log4net]
 
 == How to use ==
 
