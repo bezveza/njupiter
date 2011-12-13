@@ -5,12 +5,11 @@
 = nJupiter.DataAccess =
 
 
-Data access abstraction with adapters for SQL Server, ODBC, OleDB and Oracle especially written to make it easier to sitch between different data sources and make it easier to handle transactions.
+Data access facade for System.Data especially written to make it easier to create and call commands and to handle transactions.
 
 == Dependencies ==
 
   * [nJupiterConfiguration nJupiter.Configuration]
-  * [http://logging.apache.org/log4net/index.html log4net]
 
 == How to use ==
 
