@@ -14,7 +14,6 @@ Since this component isn't really supported and updated any longer it is suggest
 
   * [nJupiterConfiguration nJupiter.Configuration]
   * [nJupiterWeb nJupiter.Web]
-  * [http://logging.apache.org/log4net/index.html log4net]
 
 == How to use ==
 
