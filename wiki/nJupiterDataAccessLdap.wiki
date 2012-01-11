@@ -13,7 +13,6 @@ Awhile ago [http://code.google.com/u/martin.odhelius/ I] started to work in a pr
 == Dependencies ==
 
   * [nJupiterConfiguration nJupiter.Configuration]
-  * [http://logging.apache.org/log4net/index.html log4net]
   
 == How to set up nJupiter.DataAccess.Ldap ==
 
