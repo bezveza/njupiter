@@ -29,10 +29,6 @@ A small component that contains a date handler to manage week numbers like the I
 
 Very simple and small implementation of an SMTP client and Standard Arpa Internet Message defined in RFC822.
 
-== [nJupiterServicesForum nJupiter.Services.Forum] ==
-
-A forum engine with a default SQL Server implementation. The [http://code.google.com/p/njupiter/source/browse/#svn/trunk/Development/nJupiter.Services.Forum.UI nJupiter.Services.Forum.UI] assembly also contains front-end example implementations for ASP.NET.
-
 == [nJupiterTextSimpleTextParser nJupiter.Text.SimpleTextParser] ==
 
 A very simple text parser that currently contains implementations to format a text with a set of configurable regular exceptions. It is also very easy to extend with new formatters by implementing the IFormatter interface. The component currently has example configuration for converting BBCode to XHTML (look in [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.Text.SimpleTextParser.config nJupiter.Text.SimpleTextParser.config]).
