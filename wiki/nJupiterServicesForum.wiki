@@ -1,8 +1,11 @@
 #summary Documentation for nJupiter.Services.Forum
+#labels Deprecated
 
 <wiki:toc max_depth="2" />
 
 = nJupiter.Services.Forum =
+
+NOTICE: This component has been deprecated since it has not been updated for years and contain lot of legacy code.
 
 A forum engine with a default SQL Server implementation. The [http://code.google.com/p/njupiter/source/browse/#svn/trunk/Development/nJupiter.Services.Forum.UI nJupiter.Services.Forum.UI] assembly also contains front-end example implementations for ASP.NET.
 
