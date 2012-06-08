@@ -9,6 +9,10 @@ nJupiter is an open source umbrella of projects which aims to simplify the devel
 
 Component for easy management of XML configuration files. It makes it easy to fast add  different configurations for your assemblies and components. Automatically adds file watchers to local files so configuration can be updated without restarting the application.
 
+== [nJupiterAbstractionLogging nJupiter.Abstraction.Logging ==
+
+nJupiter.Abstraction.Logging is an abstraction library which makes it easy to change between different logging frameworks in runtime. nJupiter.Abstraction.Logging currently have implementations for NLog, log4net (both the old and the new public key token) and Enterprise Library Logging Application Block. The goal with nJupiter.Abstraction.Logging is simplicity and the component uses the logger pattern known from log4xxx. nJupiter.Abstraction.Logging is also designed to be easy to use together with IoC-container where you can registered generically typed loggers that you easily can use via constructor injection.
+
 == [nJupiterDataAccess nJupiter.DataAccess] ==
 
 Data access facade for System.Data especially written to make it easier to create and call commands and to handle transactions. 
