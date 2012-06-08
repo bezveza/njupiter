@@ -7,6 +7,68 @@
 nJupiter.Abstraction.Logging is an abstraction library which makes it easy to change between different logging frameworks in runtime. nJupiter.Abstraction.Logging currently have implementations for NLog, log4net (both the old and the new public key token) and Enterprise Library Logging Application Block. The goal with nJupiter.Abstraction.Logging is simplicity and the component uses the logger pattern known from log4xxx. nJupiter.Abstraction.Logging is also designed to be easy to use together with IoC-container where you can registered generically typed loggers that you easily can use via constructor injection.
 
 
-== How to set up nJupiter.Abstraction.Logging ==
+== How to set up and use nJupiter.Abstraction.Logging ==
 
-...
+You can install nJupiter.Abstraction.Logging via NUget.
+
+By default nJupiter.Abstraction.Logging will log all messages to a NULL logger. To get nJupiter.Abstraction.Logging to log to a framework you will also need to install the corresponding adapter for the logging framework that you intend to use. Currently nJupiter.Abstraction.Logging has implementations for NLog, log4net and Enterprise Library Logging Application Block.
+
+If you use NLog you will have to install the nJupiter.Abstraction.Logging.NLog package via NuGet. If you use log4net you will eihter need to install the nJupiter.Abstraction.Logging.Log4Net package if you are using a log4net version with the new public key token introduced in version 1.2.11 of log4net, or the nJupiter.Abstraction.Logging.Log4Net.OldKey package if you are using a version of log4net which using the old public key token. If you use the Enterprise Library Logging Application Block you will have to install the nJupiter.Abstraction.Logging.EnterpriseLibrary package.
+
+You can either register the adapter in code, for example via your IoC-container, or in a configuration file.
+
+If you want to use config files to configure wich adapter that is going to be used nJupiter.Abstraction.Logging make use of [nJupiterConfiguration nJupiter.Configuration].  nJupiter.Configuration will be installed automatically together with nJupiter.Abstraction.Logging if you install it via NuGet. For more information about how to configure and set up  nJupiter.Configuration please refere to [http://code.google.com/p/njupiter/wiki/nJupiterConfiguration#How_to_set_up_nJupiter.Configuration this page]. The config file for wich adapter to use will be placed in the folder /Config/ when you install the adapter, and the file is going to be named nJupiter.Abstraction.Logging.config. Remember that you can remove this file if you intend to register your adapter via code.
+
+If you want to register the adapter via an IoC-container you have to register the ILogManager implementation for the choosen adapter (named LogManagerAdapter). Here is an example how to register the log4net adapter via the IoC-container [http://code.google.com/p/autofac/ AutoFac]:
+
+{{{
+var builder = new ContainerBuilder();
+
+builder.RegisterType<nJupiter.Abstraction.Logging.Log4Net.LogManagerAdapter>()
+		.As<ILogManager>()
+		.SingleInstance();
+}}}
+
+If you use an IoC-container that can handle registration of open generics you can also register Typed Loggers. Here is an example how to register Typed Loggers via [http://code.google.com/p/autofac/ AutoFac]:
+
+{{{
+builder.RegisterGeneric(typeof(TypedLog<>)).As(typeof(ILog<>)).SingleInstance();
+}}}
+
+By using Typed Loggers you can then via for example constructor injection inject a logger in your class that will automatically be configured for your type. Here is an example: 
+
+{{{
+public class MyClass {
+    private ILog<MyClass> log;
+
+    public MyClass(ILog<MyClass> log) {
+        this.log = log;
+    }
+
+    public void HelloWorld {
+        log.Debug("Hello world");
+    }
+}
+}}}
+
+If you do not use an IoC-container you can get a logger via the ILogManager. The ILogManager is created via the LogManagerFactory by calling the GetLogManager method. You can then load a logger in serveral different ways, here is some examples:
+
+{{{
+var logManager = LogManagerFactory.GetLogManager();
+
+var loggerForCurrentClass = manager.GetCurrentClassLogger();
+var loggerNamedMyLogger = manager.GetLogger("MyLogger");
+var loggerForMyClass = manager.GetLogger<MyClass>();
+var loggerForMyOtherClass = manager.GetLogger(typeof(MyOtherClass));
+}}}
+
+You can at any time register a new LogManager via RegisterFactory method. This manager will be applicataion wide and be the manager returned via LogManagerFactory.GetLogManager(). Here is an example:
+
+{{{
+LogManagerFactory.RegisterFactory(new MyCustomLogManager());
+}}}
+
+The logger itself has an almost identically interface as the ILog class in [http://logging.apache.org/log4net/release/sdk/log4net.ILogMembers.html log4net].
+
+
+
