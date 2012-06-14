@@ -19,7 +19,7 @@ You can either register the adapter in code, for example via your IoC-container,
 
 If you want to use config files to configure wich adapter that is going to be used nJupiter.Abstraction.Logging make use of [nJupiterConfiguration nJupiter.Configuration].  nJupiter.Configuration will be installed automatically together with nJupiter.Abstraction.Logging if you install it via NuGet. For more information about how to configure and set up  nJupiter.Configuration please refere to [http://code.google.com/p/njupiter/wiki/nJupiterConfiguration#How_to_set_up_nJupiter.Configuration this page]. The config file for wich adapter to use will be placed in the folder /Config/ when you install the adapter, and the file is going to be named nJupiter.Abstraction.Logging.config. Remember that you can remove this file if you intend to register your adapter via code.
 
-=== Resolving together with an IoC-container ===
+=== Using together with an IoC-container ===
 
 If you want to register the adapter via an IoC-container you have to register the ILogManager implementation for the choosen adapter (named LogManagerAdapter). Here is an example how to register the log4net adapter via the IoC-container [http://code.google.com/p/autofac/ AutoFac]:
 
@@ -53,7 +53,7 @@ public class MyClass {
 }
 }}}
 
-=== Resolving without an IoC-container ===
+=== Using without an IoC-container ===
 
 If you do not use an IoC-container you can get a logger via the ILogManager. The ILogManager is created via the LogManagerFactory by calling the GetLogManager method. You can then load a logger in serveral different ways, here is some examples:
 
@@ -91,4 +91,3 @@ var log = manager.GetLogger<MyClass>();
 
 log.Debug(c => c("Hello world"));
 }}}
-
