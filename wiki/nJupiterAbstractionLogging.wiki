@@ -77,7 +77,7 @@ LogManagerFactory.RegisterFactory(new MyCustomLogManager());
 The logger itself has an almost identically interface as the ILog class in [http://logging.apache.org/log4net/release/sdk/log4net.ILogMembers.html log4net]. Here is a small example:
 
 {{{
-var log = manager.GetLogger<MyClass>();
+var log = logManager.GetLogger<MyClass>();
 
 if(log.IsDebugEnable){
    log.Debug("Hello world");
@@ -87,7 +87,7 @@ if(log.IsDebugEnable){
 nJupiter.Abstraction.Logging also supports asynchronous evaluation of log messages by sending in a callback to the logger instead of sending in the message directly. By doing this you do not have to check if the current logger is enable since callback will only be executed if the logger is enabled.
 
 {{{
-var log = manager.GetLogger<MyClass>();
+var log = logManager.GetLogger<MyClass>();
 
 log.Debug(c => c("Hello world"));
 }}}
