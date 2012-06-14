@@ -14,10 +14,6 @@ The only relatively free alternative back then was the [http://msdn.microsoft.co
 
 nJupiter.Configuration has since then been used in an uncountable number of projects and is today used on several enterprise web sites around the web. The strength of the component has always been that it is very easy to use but also very flexible.
 
-== Dependencies ==
-
-  * None
-
 == How to set up nJupiter.Configuration ==
 
 The first thing you have to do is to put the nJupiter.Configuration.dll in the bin folder to your project. By default nJupiter.Configuration will automatically try to recursively load all files with the extension .config in the currenct application directory (the web root if your application execute in a web context).
