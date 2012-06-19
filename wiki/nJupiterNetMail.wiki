@@ -6,7 +6,7 @@
 
 Simple implementation of an SMTP client and Standard Arpa Internet Message defined in RFC822.
 
-This component is really old and contains lot of not so clean code. It was mainly written for .NET 1.1 which lacked from a managed SMTP-client but was dependent on COM-objects.
+This component is really old and contains lot of not so clean code. It was mainly written for .NET 1.1 which lacked from a managed SMTP-client.
 
 Since this component isn't really supported and updated any longer it is suggested to use .NET:s own implementation instead of this one if you want an advanced SMTP functionality. This project is just still in the nJupiter-project to supply an open source implementation of a SMTP-client.
 
