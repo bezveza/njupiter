@@ -153,7 +153,11 @@ public class CurrentForumId {
    public int Id{ get{ return defaultForumId; } }
 
    private void Configure(object sender, EventArgs e) {
-      var config = configRepository.GetConfig();
+      var config = sender as IConfig;
+      if(config != null){
+            config.Discarded -= this.Configure;
+      }
+      config = configRepository.GetConfig();
       if (config != null) {
         defaultForumId = config.GetValue<int>("community/general", "defaultForumId");
         config.Discarded += this.Configure;
