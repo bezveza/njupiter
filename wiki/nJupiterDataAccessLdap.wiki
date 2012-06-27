@@ -81,6 +81,49 @@ You can also define the authentication types to use inside the `authenticationTy
 </authenticationTypes>
 }}}
 
+You can also set a time limit in seconds wich will be the maximum amount of time the server spends when searching for entries in the LDAP server. You do this in the `timeLimit`-element. If you leave this element out the default value will be set to 30 seconds. Here is an example where the time limit is set to 5 seconds:
+
+{{{
+<timeLimit value="5" />
+}}}
+
+If your server supports [http://www.ietf.org/proceedings/55/I-D/draft-ietf-ldapext-ldapv3-vlv-09.txt Virtual List View] (VLV) it is highly recommended that you enables it by setting the 'virtualListViewSupport'-element to true. If you leave this element out the default vill be false. Without this feature the LdapMembershipProvider will not be able to perform fully and performance wise paging when the `GetAllUsers`-, `FindUsersByName`- and `FindUsersByEmail`-methods is called. Most modern LDAP servers support VLV servers, here is a list of known server that supports VLV:
+ 
+ * IBM Tivoli Directory Server (since 6.2)
+ * Microsoft Active Directory (since Windows Server 2003)
+ * Novell eDirectory (since 8.8 [http://www.novell.com/support/kb/doc.php?id=7001493 with limitations])
+ * OpenLDAP (since 2.4, [http://www.manpagez.com/man/5/slapo-sssvlv/ via overlay])
+ * 389 Directory Server
+ * OpenDS and OpenDJ
+
+Here is an example how to turn this feature on:
+
+{{{
+<virtualListViewSupport value="true" />
+}}}
+
+If your server does not support Virtual List View but [http://www.ietf.org/rfc/rfc2891.txt Server Side Sort] you an turn this on by setting the 'propertySortingSupport'-element to true. If you leave this element out the default vill be false. If you are using VLV you can leave this element out though because Server Side Sort is required for VLV to function so in that case the sorting will be performed regardless the setting of this flag. Here is an example how to turn this feature on:
+
+{{{
+<propertySortingSupport value="true" />
+}}}
+
+You can also define a size limit which will be the maximum number of objects that the server returns in one single search operation. If you leave this element out the default value will be set to 1000. If you set size limit to a value that is larger than the server-determined default of 1000 entries, the server-determined default is used. For better performance when for example a whole set of users, it can be a good idea to keep this value pretty low if your server does not support Virtual List View. If you are using a server that supports VLV it is recommended to leave this element out or to set it to the default value. Here is an example here the size limit is set to a maximum of 100 objects per search:
+
+{{{
+<sizeLimit value="100" />
+}}}
+
+If your LDAP server does not support Virtual List View it can be a good reason to set the page size that will be used when the client preforms [http://www.ietf.org/rfc/rfc2696.txt Simple Paged Results] which will be the standard paging function if VLV is not used. Please set this value to a lower value than the size limit. The default value is 0, which means that no simple paging will be performed on searches. If you are using a server that supports VLV it is recommended to leave this element out or to set it to the default value. Here is an example where the page size is set to 50 objects:
+
+{{{
+<pageSize value="50" />
+}}}
+
+If your server supports fetching properties by [http://msdn.microsoft.com/en-us/library/cc223242%28v=prot.13%29.aspx range retrieval] you can turn this feature on by setting the `rangeRetrievalSupport`-element to true. If you leave this element out the default vill be false. It is a good idea to turn this on if your directory contains extremely large membership list (>1000 members), without it the provider can only fetch max 1500 per role when calling the `GetUsersInRole`-method in the LdapRoleProvider.
+
+... More info added soon ...
+
 {{{
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration>
@@ -93,12 +136,12 @@ You can also define the authentication types to use inside the `authenticationTy
             <authenticationType value="None" />
          </authenticationTypes>
          <timeLimit value="5" />
-         <pageSize value="100" />
          <sizeLimit value="100" />
-         <allowWildcardSearch value="true" />
-         <rangeRetrievalSupport value="true" />
-         <propertySortingSupport value="true" />
+         <pageSize value="0" />
          <virtualListViewSupport value="true" />
+         <propertySortingSupport value="true" />
+         <rangeRetrievalSupport value="true" />
+         <allowWildcardSearch value="true" />
          <users>
             <filter value="(objectClass=person)"/>
             <base value="ou=people,dc=example,dc=org" />
