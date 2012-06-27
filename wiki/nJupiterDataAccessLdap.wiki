@@ -51,10 +51,34 @@ The ldapServer attribute tells which ldap configuration in nJupiter.DataAccess.L
  
 == How to configure nJupiter.DataAccess.Ldap ==
 
-The nJupiter.DataAccess.Ldap.config config file has to contain an `ldapServers` element that contain one or more `ldapServer` elements. The `ldapServer` element has to have a `value`-attribute that is the name of the server. If you do not specify a name in the `ldapServer`-attribute for your provider in web.config you have to add a `default` attribute set to `true` for any of the `ldapServer`-elements. Here is an example:
+The nJupiter.DataAccess.Ldap.config config file has to contain an `ldapServers`-element that contain one or more `ldapServer`-elements. The `ldapServer`-element has to have a `value`-attribute that is the name of the server. If you do not specify a name in the `ldapServer`-attribute for your provider in web.config you have to add a `default` attribute set to `true` for any of the `ldapServer`-elements. Here is an example:
 
 {{{
 <ldapServer value="MyLdapServer" default="true">
+   <!--... server configuration goes here -->
+</ldapServer>
+}}}
+
+Beneath the `ldapServer`-element you add the configuration for the current server. The first thing you have to do is to define the URL to the LDAP-server. You do this in the `url`-element by setting the `value`-attribute to the URL for the server. This value has to be a fully qualified uri as defined in the [http://www.ietf.org/rfc/rfc2396.txt RFC 2396]. Here is an example:
+
+{{{
+<url value="LDAP://ldap.example.org:389/" />
+}}}
+
+The next thing you have to do is to define a `username` and `password` to use when the providers authenticating themselves towards the LDAP server. This user have to have read access in the directory. For more information please read more [http://msdn.microsoft.com/en-us/library/system.directoryservices.directoryentry.username%28v=vs.90%29 here] and [http://msdn.microsoft.com/en-us/library/system.directoryservices.directoryentry.password%28v=vs.90%29 here]. Here is an example:
+
+{{{
+<username value="uid=user,ou=people,dc=example,dc=org" />
+<password value="password" />
+}}}
+
+You can also define the authentication types to use inside the `authenticationTypes`-element. The possible authentication types are `None`, `Secure`, `Encryption`, `SecureSocketsLayer`, `ReadonlyServer`, `Anonymous`, `FastBind`, `Signing`, `Sealing`, `Delegation` and  `ServerBind`. One or more of these values can be defined beneath the `authenticationTypes`-element in one `authenticationType`-element per type. If you do not define any `authenticationTypes`-element the default authentication type will be `None`. Read more about authentication types [http://msdn.microsoft.com/en-us/library/system.directoryservices.authenticationtypes%28v=vs.90%29 here]. Here is an example:
+
+{{{
+<authenticationTypes>
+   <authenticationType value="SecureSocketsLayer" />
+   <authenticationType value="ReadonlyServer" />
+</authenticationTypes>
 }}}
 
 {{{
@@ -62,7 +86,7 @@ The nJupiter.DataAccess.Ldap.config config file has to contain an `ldapServers` 
 <configuration>
    <ldapServers>
       <ldapServer value="MyLdapServer" default="true">
-         <url value="LDAP://example.org:389/" />
+         <url value="LDAP://ldap.example.org:389/" />
          <username value="uid=user,ou=people,dc=example,dc=org"/>
          <password value="password"/>
          <authenticationTypes>
