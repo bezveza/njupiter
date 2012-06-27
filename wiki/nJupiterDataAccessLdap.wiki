@@ -120,9 +120,15 @@ If your LDAP server does not support Virtual List View it can be a good reason t
 <pageSize value="50" />
 }}}
 
-If your server supports fetching properties by [http://msdn.microsoft.com/en-us/library/cc223242%28v=prot.13%29.aspx range retrieval] you can turn this feature on by setting the `rangeRetrievalSupport`-element to true. If you leave this element out the default vill be false. It is a good idea to turn this on if your directory contains extremely large membership list (>1000 members), without it the provider can only fetch max 1500 per role when calling the `GetUsersInRole`-method in the LdapRoleProvider.
+If your server supports fetching properties by [http://msdn.microsoft.com/en-us/library/cc223242%28v=prot.13%29.aspx range retrieval] you can turn this feature on by setting the `rangeRetrievalSupport`-element to true. If you leave this element out the default vill be false. It is a good idea to turn this on if your directory contains extremely large membership list (>1000 members), without it the provider can only fetch max 1500 per role when calling the `GetUsersInRole`-method in the LdapRoleProvider. Here is an example how to turn this feature on:
+
+{{{
+<rangeRetrievalSupport value="true" />
+}}}
 
 ... More info added soon ...
+
+Here is an example config where every possible element is defined:
 
 {{{
 <?xml version="1.0" encoding="utf-8" ?>
