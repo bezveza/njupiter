@@ -4,23 +4,22 @@
 
 = nJupiter.DataAccess.Ldap =
 
-Component containing a generic MembershipProvider and RoleProvider for LDAP . These providers has been tested with Microsoft Active Directory, Novell eDirectory and IBM Lotus Domino / IBM Tivoli Directory Server.
+Component containing a generic MembershipProvider and RoleProvider for LDAP . These providers has been successfully tested with Microsoft Active Directory, Novell eDirectory, IBM Tivoli Directory Server and Lotus Domino but shall probably work with any type of LDAP-server such as OpenLDAP, 389 Directory Server, OpenDS / OpenDJ, Apache DS and Oracle Internet Directory (if you are using these providers with any of the server not listed as tested, please contact with status regaring if they successfully work or not).
+
+The component also contain facades and abstractions for System.DirectoryServices namespace and a parser for distinguished names.
 
 == History and Purpose ==
 
-Awhile ago [http://code.google.com/u/martin.odhelius/ I] started to work in a project that had the goal to use a CMS that were using .NET's MembershipProvider and RoleProvider architecture for authentication and user management. The customer that would use the CMS solution used an IBM Tivoli LDAP Directory Server and first I thought that would not be any problems since I was prety sure that it would exist a LDAP MembershipProvider and RoleProvider in the .NET framework, but to my surprise it didn't! Then I started to look around the web for alternatives but I didn't find any LDAP MembershipProvider and RoleProvider anywhere so I decided to write my own. My aims was to write a generic LDAP provider that should work both with my internal Active Directory test server and together with the customer's Tivoli server or with any other LDAP server out there, the result was nJupiter.DataAccess.Ldap.
-
-== Dependencies ==
-
-  * [nJupiterConfiguration nJupiter.Configuration]
-  
+A few years ago [http://code.google.com/u/martin.odhelius/ I] started to work in a project that had the goal to use a CMS that were using .NET's MembershipProvider and RoleProvider architecture for authentication and user management. The customer that would use the CMS solution used an IBM Tivoli LDAP Directory Server and first I thought that would not be any problems since I was prety sure that it would exist a LDAP MembershipProvider and RoleProvider in the .NET framework, but to my surprise it didn't! Then I started to look around the web for alternatives but I didn't find any LDAP MembershipProvider and RoleProvider anywhere so I decided to write my own. My aims was to write a generic LDAP provider that should work both with my internal Active Directory test server and together with the customer's Tivoli server or with any other LDAP server out there, the result was nJupiter.DataAccess.Ldap.
+ 
 == How to set up nJupiter.DataAccess.Ldap ==
 
-nJupiter.DataAccess.Ldap is using [nJupiterConfiguration nJupiter.Configuration] so the first thing you have to do is to set up nJupiter.Configuration in your web.config. You can find more information how to do that [http://code.google.com/p/njupiter/wiki/nJupiterConfiguration#How_to_set_up_nJupiter.Configuration here].
+You can install nJupiter.DataAccess.Ldap via NuGet. The NuGet package do not include any config though so you will have to activate the providers in your web.config and also add configuration for your LDAP-server before it will work.
 
-The next thing you have to do is to add a nJupiter.DataAccess.Ldap.config-file to your configuration directory. You can find example configurations how to configure your server  [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config here]. This configuration is hopefully pretty straight forward. The only configuration values that can maybe be a little hard to understand are the values in the attributes-collection, these are LDAP attributes that shall be loaded together with the LdapMembershipUser and also the attributes in which the membership provider will search in when you use the FindUsersByName-method. The authenticationTypes represents the System.DirectoryServices.AuthenticationTypes in .NET. Also note that it is the provider with the default="true" attribute that is going to be used as your default provider if you do not set anything else in ldapServer attribute in the membership or roleManager configuration in your web.config.
+nJupiter.DataAccess.Ldap is using [nJupiterConfiguration nJupiter.Configuration] which will install together with nJupiter.DataAccess.Ldap if you install it via NuGet.
+For more information about how to configure and set up nJupiter.Configuration please refer to [nJupiterConfiguration#How_to_set_up_nJupiter.Configuration this page]. The config file containing the LDAP server config shall be named nJupiter.DataAccess.Ldap.config and placed anywhere where nJupiter.Configuration can read it. You can find an example file with  configurations for different LDAP servers [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config here]. Read more how to configure the component [nJupiterConfiguration#How_to_configure_nJupiter._.Ldap here]
 
-The last thing you have to do is to configure your web.config to use nJupiter.DataAccess.Ldap. Here is an example:
+When you have added configuration for you LDAP server you are ready to turn the providers on in web.config. You do this in the membership and roleManager elements beneath system.web. Here is an example:
 
 {{{
 <system.web>
@@ -49,6 +48,57 @@ The ldapServer attribute tells which ldap configuration in nJupiter.DataAccess.L
   * [http://msdn.microsoft.com/en-us/library/ff647401.aspx How To: Use Role Manager in ASP.NET 2.0]
   * [http://msdn.microsoft.com/en-us/library/1b9hw62f.aspx membership Element (ASP.NET Settings Schema)]
   * [http://msdn.microsoft.com/en-us/library/ms164660.aspx roleManager Element (ASP.NET Settings Schema)]
+ 
+== How to configure nJupiter.DataAccess.Ldap ==
+
+{{{
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+   <ldapServers>
+      <ldapServer value="MyLdapServer" default="true">
+         <url value="LDAP://example.org:389/" />
+         <username value="uid=user,ou=people,dc=example,dc=org"/>
+         <password value="password"/>
+         <authenticationTypes>
+            <authenticationType value="None" />
+         </authenticationTypes>
+         <timeLimit value="5" />
+         <pageSize value="100" />
+         <sizeLimit value="100" />
+         <allowWildcardSearch value="true" />
+         <rangeRetrievalSupport value="true" />
+         <propertySortingSupport value="true" />
+         <virtualListViewSupport value="true" />
+         <users>
+            <filter value="(objectClass=person)"/>
+            <base value="ou=people,dc=example,dc=org" />
+            <rdnAttribute value="uid" />
+            <rdnInPath value="true" />
+            <nameType value="cn" />
+            <membershipAttribute value="memberOf" />
+            <descriptionAttribute value="cn" />
+            <emailAttribute value="mail" />
+            <creationDateAttribute value="whenCreated" />
+            <lastLoginDateAttribute value="lastLogon" />
+            <lastPasswordChangedDateAttribute value="pwdLastSet" />
+            <attributes>
+               <attribute value="givenName" />
+               <attribute value="sn" />
+               <attribute value="title" excludeFromNameSearch="true" />
+            </attributes>
+         </users>
+         <groups>
+            <filter value="(objectClass=groupOfNames)"/>
+            <base value="ou=groups,dc=example,dc=org" />
+            <rdnAttribute value="cn" />
+            <rdnInPath value="true" />
+            <membershipAttribute value="member" />
+            <nameType value="cn" />
+         </groups>         
+      </ldapServer>
+   </ldapServers>
+</configuration>
+}}}
 
 == How to use ==
 
@@ -62,6 +112,6 @@ If you get "System.InvalidOperationException: The value for the property Sort ca
 
 If you get "System.InvalidOperationException: The value for the property PageSize cannot be set.", try to disable paging by either removing the pageSize element entirely or by setting its value to 0 in [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config nJupiter.DataAccess.Ldap.config]
 
-If you get similar exeptions you can also try to turn of the rangeRetrievalSupport by setting its flag to false.
+If you get similar exceptions you can also try to turn of the rangeRetrievalSupport by setting its flag to false.
 
 If you get "COMException (0x80005000): Unknown error (0x80005000)" or similar it is probably caused by difference between your authenticationTypes-setting and how your LDAP server is configured. You can read more about how to configure the authenticationTypes [http://msdn.microsoft.com/en-us/library/system.directoryservices.authenticationtypes.aspx here].
