@@ -51,6 +51,12 @@ The ldapServer attribute tells which ldap configuration in nJupiter.DataAccess.L
  
 == How to configure nJupiter.DataAccess.Ldap ==
 
+The nJupiter.DataAccess.Ldap.config config file has to contain an `ldapServers` element that contain one or more `ldapServer` elements. The `ldapServer` element has to have a `value`-attribute that is the name of the server. If you do not specify a name in the `ldapServer`-attribute for your provider in web.config you have to add a `default` attribute set to `true` for any of the `ldapServer`-elements. Here is an example:
+
+{{{
+<ldapServer value="MyLdapServer" default="true">
+}}}
+
 {{{
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration>
