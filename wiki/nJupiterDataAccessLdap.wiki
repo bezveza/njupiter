@@ -87,7 +87,7 @@ You can also set a time limit in seconds wich will be the maximum amount of time
 <timeLimit value="5" />
 }}}
 
-If your server supports [http://www.ietf.org/proceedings/55/I-D/draft-ietf-ldapext-ldapv3-vlv-09.txt Virtual List View] (VLV) it is highly recommended that you enables it by setting the 'virtualListViewSupport'-element to true. If you leave this element out the default vill be false. Without this feature the LdapMembershipProvider will not be able to perform fully and performance wise paging when the `GetAllUsers`-, `FindUsersByName`- and `FindUsersByEmail`-methods is called. Most modern LDAP servers support VLV servers, here is a list of known server that supports VLV:
+If your server supports [http://www.ietf.org/proceedings/55/I-D/draft-ietf-ldapext-ldapv3-vlv-09.txt Virtual List View] (VLV) it is highly recommended that you enables it by setting the 'virtualListViewSupport'-element to true. If you leave this element out the default will be set to false. Without this feature the LdapMembershipProvider will not be able to perform fully and performance wise paging when the `GetAllUsers`-, `FindUsersByName`- and `FindUsersByEmail`-methods is called. Most modern LDAP servers support VLV servers, some of them needs that you actively enable the feature or install an add on for it to work though. Here is a list of known server that supports VLV:
  
  * IBM Tivoli Directory Server (since 6.2)
  * Microsoft Active Directory (since Windows Server 2003)
@@ -103,7 +103,7 @@ Here is an example how to turn this feature on:
 <virtualListViewSupport value="true" />
 }}}
 
-If your server does not support Virtual List View but [http://www.ietf.org/rfc/rfc2891.txt Server Side Sort] you an turn this on by setting the 'propertySortingSupport'-element to true. If you leave this element out the default vill be false. If you are using VLV you can leave this element out though because Server Side Sort is required for VLV to function so in that case the sorting will be performed regardless the setting of this flag. Here is an example how to turn this feature on:
+If your server does not support Virtual List View but [http://www.ietf.org/rfc/rfc2891.txt Server Side Sort] you can turn this on by setting the 'propertySortingSupport'-element to true. If you leave this element out the default vill be false. If you are using VLV you can leave this element out though because Server Side Sort is required for VLV to function so in that case the sorting will be performed regardless the setting of this flag. Here is an example how to turn this feature on:
 
 {{{
 <propertySortingSupport value="true" />
@@ -127,7 +127,7 @@ If your server supports fetching properties by [http://msdn.microsoft.com/en-us/
 <rangeRetrievalSupport value="true" />
 }}}
 
-If you want to be able to do wild card search when you for example using the `FindUsersByName`- and `FindUsersByEmail`-methods on the LdapMemebershipProvider you have to have wild card search enabled (for example `FindUsersByName("john*", 0, 10, out totalRecords)` will return a list of users with a name that starts with `john`). This feature is enabled by default, but if you of some reason want to disable it you can set the `allowWildcardSearch`-element to false. Here is an example how to turn this feature off:
+If you want to be able to do wild card search when you for example using the `FindUsersByName`- and `FindUsersByEmail`-methods on the LdapMemebershipProvider you have to have wild card search eneabled (for example `FindUsersByName("john*", 0, 10, out totalRecords)` will return a list of users with a name that starts with `john`). This feature is enabled by default, but if you of some reason want to disable it you can set the `allowWildcardSearch`-element to false. Here is an example how to turn this feature off:
 
 {{{
 <allowWildcardSearch value="false" />
@@ -196,7 +196,7 @@ Here is an example config where all possible element is defined:
 
 == How to use ==
 
-The LdapMembershipProvider and LdapRoleProvider are working like standard MembershipProviders and RoleProviders, the providers are read only though and does not implement any functionality that writes information to the LDAP server, besides that you shall be able to use without doing anything more that explained in the previous section.
+The LdapMembershipProvider and LdapRoleProvider are working like standard MembershipProviders and RoleProviders, the providers are read only though and does not implement any functionality that writes information to the LDAP server, besides that you shall be able to use without doing anything more that explained in the previous sections.
 
 A bonus feature beside the standard provider interface is that the LdapMembershipProvider is able to load LDAP attributes for users besides the standard MembershipUser attributes. Those can be accessible by casting the  MembershipUser to an nJupiter.DataAccess.Ldap.LdapMembershipUser and read the Attributes property.
 
