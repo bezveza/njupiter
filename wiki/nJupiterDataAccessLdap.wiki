@@ -42,7 +42,7 @@ When you have added configuration for you LDAP server you are ready to turn the 
 </system.web>
 }}}
 
-The ldapServer attribute tells which ldap configuration in nJupiter.DataAccess.Ldap.config to use, if this attribute is left out the configuration with the default="true" attribute will be used. If you need more information how to configure MembershipProviders and RoleProviders you can find it here:
+The ldapServer attribute tells which LDAP configuration in nJupiter.DataAccess.Ldap.config to use, if this attribute is left out the configuration with the default="true" attribute will be used. If you need more information how to configure MembershipProviders and RoleProviders you can find it here:
 
   * [http://msdn.microsoft.com/en-us/library/ff648345.aspx How To: Use Membership in ASP.NET 2.0]
   * [http://msdn.microsoft.com/en-us/library/ff647401.aspx How To: Use Role Manager in ASP.NET 2.0]
@@ -83,7 +83,7 @@ You can also define the authentication types to use inside the `authenticationTy
 </authenticationTypes>
 }}}
 
-You can also set a time limit in seconds wich will be the maximum amount of time the server spends when searching for entries in the LDAP server. You do this in the `timeLimit`-element. If you leave this element out the default value will be set to 30 seconds. Here is an example where the time limit is set to 5 seconds:
+You can also set a time limit in seconds which will be the maximum amount of time the server spends when searching for entries in the LDAP server. You do this in the `timeLimit`-element. If you leave this element out the default value will be set to 30 seconds. Here is an example where the time limit is set to 5 seconds:
 
 {{{
 <timeLimit value="5" />
@@ -137,7 +137,7 @@ If you want to be able to do wild card search when you for example using the `Fi
 
 === Configure user settings ===
 
-In an LDAP server membership users are typically called people, persons or users, from now on we call them users. To map thous users to a MembershipUser you have to tell the LdapMembershipProvider how to find the user-enries in the LDAP-server and wich attributes in the LDAP that conform to the properties in the MembershipUser class. You will do all user specific configuration beneath the `users`-element wich shall be placed inside the ´ldapServer´-element. Here is an example:
+In an LDAP server membership users are typically called people, persons or users, from now on we call them users. To map thous users to a MembershipUser you have to tell the LdapMembershipProvider how to find the user-enries in the LDAP-server and wich attributes in the LDAP that conform to the properties in the MembershipUser class. You will do all user specific configuration beneath the `users`-element which shall be placed inside the ´ldapServer´-element. Here is an example:
 
 Here is an example:
 
@@ -175,19 +175,42 @@ You can also define in which formats the user names shall be returned by the com
 <nameType value="cn" />
 }}}
 
-If you are using an LDAP server that store in which groups a user are a member of, not just in the group, but also in the user itself, you can define the attribute in the user entry that is storing the memberships, you do this by setting the attribute name in the `membershipAttribute`-element. Most LDAP servers cross store the membership both in the user and in the group, but there are some exceptions, like Oracle Internet Directory and some installations of Lotus Domino, for such servers you leave this setting blank or leave the element out completely. If your LDAP server supports cross storing of memebership it is higly suggested to set this value though, even if it will work without it, because it is mych more performance wise to just search the user for it's groups rather than to search the groups for user belonings. IBM Tivoli servers typically use `ibm-allGroups` for this while for example Microsoft Active Directory typically use `memberOf`. Here is an example:
+If you are using an LDAP server that store in which groups a user are a member of, not just in the group, but also in the user itself, you can define the attribute in the user entry that is storing the memberships, you do this by setting the attribute name in the `membershipAttribute`-element. Most LDAP servers cross store the membership both in the user and in the group, but there are some exceptions, like Oracle Internet Directory and some installations of Lotus Domino, for such servers you leave this setting blank or leave the element out completely. If your LDAP server supports cross storing of membership it is highly suggested to set this value though, even if it will work without it, because it is much more performance wise to just search the user for it's groups rather than to search the groups for user belongings. IBM Tivoli servers typically use `ibm-allGroups` for this while for example Microsoft Active Directory typically use `memberOf`. Here is an example:
 
 {{{
 <membershipAttribute value="memberOf" />
 }}}
 
-If the users in your LDAP server has e-mail-adresses stored and want them to be mapped to the `Email`-property on the MembershipUser you can configure the `emailAttribute`-attribute to be set to the corresponding attribute in the LDAP. The default value if you leave this element out is will be `mail`. Here is an example how you configure this setting:
+If the users in your LDAP server has e-mail-adresses stored and want them to be mapped to the `Email`-property on the MembershipUser you can configure the `emailAttribute`-element to be set to the corresponding attribute in the LDAP. The default value if you leave this element out is will be `mail`. Here is an example how you configure this setting:
 
 {{{
 <emailAttribute value="mail" />
 }}}
 
-... More info added soon ...
+You can map the `Comment`-property on the MembershipUser by setting the `descriptionAttribute`-element to a corresponding attribute in the LDAP. It can for example be a good idea to set this to an attribute that contains the full name for the user, for example the CN attribute, here is an example:
+
+{{{
+<descriptionAttribute value="cn" />
+}}}
+
+You can also map the `LastPasswordChangedDate`-, `CreationDate`- and `LastLoginDate`-property on the MembershipUser by setting the `lastPasswordChangedDateAttribute`-, `creationDateAttribute`- and `lastLoginDateAttribute`-elements to a corresponding attributes in the LDAP. _Notice that some LDAP-servers store these values in a format that is not generically supported to load via the System.DirectoryServices.DirectorySearcher though, and will therefor result in an "COMException : Exception from HRESULT: 0x8000500C". If you get this error, please clear these settings._ Here is an example how to configure these values:
+
+{{{
+<creationDateAttribute value="whenCreated" />
+<lastLoginDateAttribute value="lastLogon" />
+<lastPasswordChangedDateAttribute value="pwdLastSet" />
+}}}
+
+You can also tell the component to load additional LDAP attributes together with the LdapMembershipUsers, you do this by adding `attribute`-elements beneath the `attributes`-elements. Thous attributes can then be accessed via `((LdapMembershipUser)membershipUser).Attributes["attributeName"]`. If you do not set the `excludeFromNameSearch`-attribute to true on the `attribute`-element the attribute will also be searchable via the `FindUsersByName`-method on the LdapMembershipProvider, which means that if you for example have a user with the username "jdoe" and this user also have an attribute with his given name "John" with the attribute ´givenName´ that is not excluded from the search, this user can be found by using `FindUsersByName("John*", 0, 10, out totalRecords)`. Here is an example where you tell the component to also load the given name (givenName), the sure name (sn) and the title for all users, but title shall not be searchable:
+
+{{{
+<attributes>
+   <attribute value="givenName" />
+   <attribute value="sn" />
+   <attribute value="title" excludeFromNameSearch="true" />
+</attributes>
+}}}
+
 
 === Configure group settings ===
 
@@ -294,15 +317,15 @@ A bonus feature beside the standard provider interface is that the LdapMembershi
 
 == Troubleshooting ==
 
-If you get "System.InvalidOperationException: The value for the property VirtualListView cannot be set", try do disabling property sorting by setting the virtualListViewSupport to false in [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config nJupiter.DataAccess.Ldap.config]
+If you get "System.InvalidOperationException: The value for the property VirtualListView cannot be set", try do disabling property sorting by setting the `virtualListViewSupport` to false in [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config nJupiter.DataAccess.Ldap.config]
 
-If you get "System.InvalidOperationException: The value for the property Sort cannot be set", try do disabling property sorting by setting the propertySortingSupport to false in [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config nJupiter.DataAccess.Ldap.config]
+If you get "System.InvalidOperationException: The value for the property Sort cannot be set", try do disabling property sorting by setting the `propertySortingSupport` to false in [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config nJupiter.DataAccess.Ldap.config]
 
-If you get "System.InvalidOperationException: The value for the property PageSize cannot be set.", try to disable paging by either removing the pageSize element entirely or by setting its value to 0 in [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config nJupiter.DataAccess.Ldap.config]
+If you get "System.InvalidOperationException: The value for the property PageSize cannot be set.", try to disable paging by either removing the `pageSize` element entirely or by setting its value to 0 in [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config nJupiter.DataAccess.Ldap.config]
 
-If you get similar exceptions you can also try to turn of the rangeRetrievalSupport by setting its flag to false.
+If you get similar exceptions you can also try to turn of the `rangeRetrievalSupport` by setting its flag to false.
 
-If you get "COMException (0x80005000): Unknown error (0x80005000)" or similar it is probably caused by difference between your authenticationTypes-setting and how your LDAP server is configured. You can read more about how to configure the authenticationTypes [http://msdn.microsoft.com/en-us/library/system.directoryservices.authenticationtypes.aspx here].
+If you get "COMException (0x80005000): Unknown error (0x80005000)" or similar it is probably caused by difference between your `authenticationTypes`-setting and how your LDAP server is configured.
 
 If you get "COMException : Exception from HRESULT: 0x8000500C" your LDAP server probably stores some of the attributes in a format that is not generically supported to load via the System.DirectoryServices.DirectorySearcher, this generally happens when the value is stored as a non string format, for example time stamps. Try to clear the settings for `creationDateAttribute`, `lastLoginDateAttribute` and `lastPasswordChangedDateAttribute` and remove any additional attribute that is not in a string format that you have added under the `attributes`-element.
 
