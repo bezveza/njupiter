@@ -305,3 +305,5 @@ If you get similar exceptions you can also try to turn of the rangeRetrievalSupp
 If you get "COMException (0x80005000): Unknown error (0x80005000)" or similar it is probably caused by difference between your authenticationTypes-setting and how your LDAP server is configured. You can read more about how to configure the authenticationTypes [http://msdn.microsoft.com/en-us/library/system.directoryservices.authenticationtypes.aspx here].
 
 If you get "COMException (0x8007203a): The server is not operational" or similar it is typically returned when server is not of some reason reachable in the network, most certainly cause by an incorrect connection string, port or authentication type or by network related issues not associated with the component itself. 
+
+For other COMExceptions please refer to [http://www.selfadsi.org/errorcodes.htm this page]
