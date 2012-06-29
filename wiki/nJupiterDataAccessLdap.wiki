@@ -181,6 +181,12 @@ If you are using an LDAP server that store in which groups a user are a member o
 <membershipAttribute value="memberOf" />
 }}}
 
+If the users in your LDAP server has e-mail-adresses stored and want them to be mapped to the `Email`-property on the MembershipUser you can configure the `emailAttribute`-attribute to be set to the corresponding attribute in the LDAP. The default value if you leave this element out is will be `mail`. Here is an example how you configure this setting:
+
+{{{
+<emailAttribute value="mail" />
+}}}
+
 ... More info added soon ...
 
 === Configure group settings ===
