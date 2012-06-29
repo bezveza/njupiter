@@ -288,6 +288,8 @@ A bonus feature beside the standard provider interface is that the LdapMembershi
 
 == Troubleshooting ==
 
+If you get "System.InvalidOperationException: The value for the property VirtualListView cannot be set", try do disabling property sorting by setting the virtualListViewSupport to false in [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config nJupiter.DataAccess.Ldap.config]
+
 If you get "System.InvalidOperationException: The value for the property Sort cannot be set", try do disabling property sorting by setting the propertySortingSupport to false in [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config nJupiter.DataAccess.Ldap.config]
 
 If you get "System.InvalidOperationException: The value for the property PageSize cannot be set.", try to disable paging by either removing the pageSize element entirely or by setting its value to 0 in [http://code.google.com/p/njupiter/source/browse/trunk/Development/Shared%20Resources/Config/nJupiter.DataAccess.Ldap.config nJupiter.DataAccess.Ldap.config]
