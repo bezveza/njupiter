@@ -51,7 +51,7 @@ The ldapServer attribute tells which ldap configuration in nJupiter.DataAccess.L
  
 == How to configure nJupiter.DataAccess.Ldap ==
 
-You do the configuration for the LDAP servers in the nJupiter.DataAccess.Ldap.config file that you can read more about above. *Notice that all config values have to be XML encoded in the config file*.
+You do the configuration for the LDAP servers in the nJupiter.DataAccess.Ldap.config file that you can read more about above. *Notice that all config values have to be XML elncoded in the config file*.
 
 The nJupiter.DataAccess.Ldap.config config file has to contain an `ldapServers`-element that contain one or more `ldapServer`-elements. The `ldapServer`-element has to have a `value`-attribute that is the name of the server. If you do not specify a name in the `ldapServer`-attribute for your provider in web.config you have to add a `default` attribute set to `true` for any of the `ldapServer`-elements. Here is an example:
 
@@ -83,7 +83,7 @@ You can also define the authentication types to use inside the `authenticationTy
 </authenticationTypes>
 }}}
 
-You can also set a time limit in seconds which will be the maximum amount of time the server spends when searching for entries in the LDAP server. You do this in the `timeLimit`-element. If you leave this element out the default value will be set to 30 seconds. Here is an example where the time limit is set to 5 seconds:
+You can also set a time limit in seconds wich will be the maximum amount of time the server spends when searching for entries in the LDAP server. You do this in the `timeLimit`-element. If you leave this element out the default value will be set to 30 seconds. Here is an example where the time limit is set to 5 seconds:
 
 {{{
 <timeLimit value="5" />
@@ -123,13 +123,13 @@ If your LDAP server does not support Virtual List View it can be a good reason t
 <pageSize value="50" />
 }}}
 
-If your server supports fetching properties by [http://msdn.microsoft.com/en-us/library/cc223242%28v=prot.13%29.aspx range retrieval] you can turn this feature on by setting the `rangeRetrievalSupport`-element to true. If you leave this element out the default will be false. It is a good idea to turn this on if your directory contains extremely large membership list (>1000 members), without it the provider can only fetch max 1500 per role when calling the `GetUsersInRole`-method in the LdapRoleProvider. Here is an example how to turn this feature on:
+If your server supports fetching properties by [http://msdn.microsoft.com/en-us/library/cc223242%28v=prot.13%29.aspx range retrieval] you can turn this feature on by setting the `rangeRetrievalSupport`-element to true. If you leave this element out the default vill be false. It is a good idea to turn this on if your directory contains extremely large membership list (>1000 members), without it the provider can only fetch max 1500 per role when calling the `GetUsersInRole`-method in the LdapRoleProvider. Here is an example how to turn this feature on:
 
 {{{
 <rangeRetrievalSupport value="true" />
 }}}
 
-If you want to be able to do wild card search when you for example using the `FindUsersByName`- and `FindUsersByEmail`-methods on the LdapMemebershipProvider you have to have wild card search enabled (for example `FindUsersByName("john*", 0, 10, out totalRecords)` will return a list of users with a name that starts with `john`). This feature is enabled by default, but if you of some reason want to disable it you can set the `allowWildcardSearch`-element to false. Here is an example how to turn this feature off:
+If you want to be able to do wild card search when you for example using the `FindUsersByName`- and `FindUsersByEmail`-methods on the LdapMemebershipProvider you have to have wild card search eneabled (for example `FindUsersByName("john*", 0, 10, out totalRecords)` will return a list of users with a name that starts with `john`). This feature is enabled by default, but if you of some reason want to disable it you can set the `allowWildcardSearch`-element to false. Here is an example how to turn this feature off:
 
 {{{
 <allowWildcardSearch value="false" />
@@ -150,14 +150,14 @@ Here is an example:
 }}}
 
 
-In the ´base´-element you define the base DN. The base shall be distinguished name that point to the level in the LDAP under which the users are located. If you need to know more about distinguished names you can read more about it [http://publib.boulder.ibm.com/infocenter/iseries/v5r3/index.jsp?topic=%2Frzahy%2Frzahyunderdn.htm here] or [http://msdn.microsoft.com/en-us/library/windows/desktop/aa366101%28v=vs.85%29.aspx here]. The search that will be performed will search the whole sub tree so it will be able to find users in several levels, but to make it as performance wise as possible it is a good idea to configure this as close to the users as possible. A base config can for example looks like this:
+In the ´base´-element you define the base DN. The base shall be distinguished name that point to the level in the LDAP under wich the users are located. If you need to know more about distinguished names you can read more about it [http://publib.boulder.ibm.com/infocenter/iseries/v5r3/index.jsp?topic=%2Frzahy%2Frzahyunderdn.htm here] or [http://msdn.microsoft.com/en-us/library/windows/desktop/aa366101%28v=vs.85%29.aspx here]. The search that will be performed will search the whole subtree so it will be able to find users in several levels, but to make it as performance wise as possible it is a good idea to configure this as close to the users as possible. A base config can for example looks like this:
 
 {{{
 <base value="ou=people,o=example,dc=org" />
 }}}
 
-The next thing you have to do is to define a LDAP format filter that shall be used to find the user entries. If you need to know more about search filters you can read more about them [http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx here], [http://www.ldapexplorer.com/en/manual/109010000-ldap-filter-syntax.htm here] or [http://publib.boulder.ibm.com/infocenter/tivihelp/v8r1/index.jsp?topic=%2Fcom.ibm.netcool_impact.doc%2Fim31pr%2FxF1052585.html here]. *Notice that the filter has to be XML encoded in the config file*
-The default will be `(objectClass=*)` but performance wise it can be a good idea to make a more specific filter. If you are using Microsoft Active Directory this filter shall typically be `(sAMAccountType=805306368)`, and for an ADAM server it is typically `(&amp;(objectClass=user)(objectCategory=person))` while for for example an IBM Tivoli server is is typically ´(objectClass=person)´. Here is an example how a configuration for this can look like:
+The next thing you have to do is to define a LDAP format filter that shall be used to find the user entries. If you need to know more about search filters you can read more about them [http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx here], [http://www.ldapexplorer.com/en/manual/109010000-ldap-filter-syntax.htm here] or [http://publib.boulder.ibm.com/infocenter/tivihelp/v8r1/index.jsp?topic=%2Fcom.ibm.netcool_impact.doc%2Fim31pr%2FxF1052585.html here]. *Notice that the filter has to be XML elncoded in the config file*.
+The default will be `(objectClass=*)` but performance wise it can be a good idea to make a more specific filter. If you are using Microsoft Active Directory this filter shall typically be `(sAMAccountType=805306368)`, and for an ADAM server it is typically `(&amp;(objectClass=user)(objectCategory=person))` while for for example an IBM Tivoli server is is typibally `(objectClass=person)`. Here is an example how a configuration for this can look like:
 
 {{{
 <filter value="(objectClass=person)"/>
@@ -169,7 +169,7 @@ The next thing you will have to do is to tell which attribute that contains the 
 <rdnAttribute value="uid" />
 }}}
 
-You can also define in which formats the user names shall be returned by the component by changing the value in the `nameType`-element. The possible alternatives are `CN`, `RDN` and `DN`. The default if you leave this element out i `CN` and is probably the value the majority of the consumers of this component shall use, that will return the user name as a standard common name. `RDN` will return the name formatted as a Relative Distinguished Name and the `DN` will result in that the names are returned as full Distinguished Names. Values other than `CN` will probably only be interesting for LDAP developers, so leave this element out or set to `CN` if you do not have any specific reason for anything else. Here is an example where the value is set to default:
+You can also define in which formats the user names shall be returned by the component by changing the value in the `nameType`-element. The possible values for this setting are `CN`, `RDN` or `DN`. The default if you leave this element out i `CN` and is probably the value the majority of the consumers of this component shall use, that will return the user name as a standard common name. `RDN` will return the name formated as a Relative Distinguished Name and the `DN` will result in that the names are returned as full Distinguished Names. Values other than `CN` will probably only be interesting for LDAP developers, so leave this element out or set to `CN` if you do not have any specific reason for anyting else. Here is an example where the value is set to default:
 
 {{{
 <nameType value="cn" />
