@@ -10,7 +10,7 @@ The component also contain facades and abstractions for System.DirectoryServices
 
 == History and Purpose ==
 
-A few years ago [http://code.google.com/u/martin.odhelius/ I] started to work in a project that had the goal to use a CMS that were using .NET's MembershipProvider and RoleProvider architecture for authentication and user management. The customer that would use the CMS solution used an IBM Tivoli LDAP Directory Server and first I thought that would not be any problems since I was prety sure that it would exist a LDAP MembershipProvider and RoleProvider in the .NET framework, but to my surprise it didn't! Then I started to look around the web for alternatives but I didn't find any LDAP MembershipProvider and RoleProvider anywhere so I decided to write my own. My aims was to write a generic LDAP provider that should work both with my internal Active Directory test server and together with the customer's Tivoli server or with any other LDAP server out there, the result was nJupiter.DataAccess.Ldap.
+A few years ago [http://code.google.com/u/martin.odhelius/ I] started to work in a project that had the goal to use a CMS that were using .NET's MembershipProvider and RoleProvider architecture for authentication and user management. The customer that would use the CMS solution used an IBM Tivoli LDAP Directory Server and first I thought that would not be any problems since I was pretty sure that it would exist a LDAP MembershipProvider and RoleProvider in the .NET framework, but to my surprise it didn't! Then I started to look around the web for alternatives but I didn't find any LDAP MembershipProvider and RoleProvider anywhere so I decided to write my own. My aims was to write a generic LDAP provider that should work both with my internal Active Directory test server and together with the customer's Tivoli server or with any other LDAP server out there, the result was nJupiter.DataAccess.Ldap.
  
 == How to set up nJupiter.DataAccess.Ldap ==
 
@@ -51,7 +51,7 @@ The ldapServer attribute tells which ldap configuration in nJupiter.DataAccess.L
  
 == How to configure nJupiter.DataAccess.Ldap ==
 
-You do the configuration for the LDAP servers in the nJupiter.DataAccess.Ldap.config file that you can read more about above. *Notice that all config values have to be XML elncoded in the config file*.
+You do the configuration for the LDAP servers in the nJupiter.DataAccess.Ldap.config file that you can read more about above. _Notice that all config values have to be XML encoded in the config file_.
 
 The nJupiter.DataAccess.Ldap.config config file has to contain an `ldapServers`-element that contain one or more `ldapServer`-elements. The `ldapServer`-element has to have a `value`-attribute that is the name of the server. If you do not specify a name in the `ldapServer`-attribute for your provider in web.config you have to add a `default` attribute set to `true` for any of the `ldapServer`-elements. Here is an example:
 
@@ -105,7 +105,7 @@ Here is an example how to turn this feature on:
 <virtualListViewSupport value="true" />
 }}}
 
-If your server does not support Virtual List View but [http://www.ietf.org/rfc/rfc2891.txt Server Side Sort] you can turn this on by setting the 'propertySortingSupport'-element to true. If you leave this element out the default vill be false. If you are using VLV you can leave this element out though because Server Side Sort is required for VLV to function so in that case the sorting will be performed regardless the setting of this flag. Here is an example how to turn this feature on:
+If your server does not support Virtual List View but [http://www.ietf.org/rfc/rfc2891.txt Server Side Sort] you can turn this on by setting the 'propertySortingSupport'-element to true. If you leave this element out the default will be false. If you are using VLV you can leave this element out though because Server Side Sort is required for VLV to function so in that case the sorting will be performed regardless the setting of this flag. Here is an example how to turn this feature on:
 
 {{{
 <propertySortingSupport value="true" />
@@ -129,7 +129,7 @@ If your server supports fetching properties by [http://msdn.microsoft.com/en-us/
 <rangeRetrievalSupport value="true" />
 }}}
 
-If you want to be able to do wild card search when you for example using the `FindUsersByName`- and `FindUsersByEmail`-methods on the LdapMemebershipProvider you have to have wild card search eneabled (for example `FindUsersByName("john*", 0, 10, out totalRecords)` will return a list of users with a name that starts with `john`). This feature is enabled by default, but if you of some reason want to disable it you can set the `allowWildcardSearch`-element to false. Here is an example how to turn this feature off:
+If you want to be able to do wild card search when you for example using the `FindUsersByName`- and `FindUsersByEmail`-methods on the LdapMemebershipProvider you have to have wild card search enabled (for example `FindUsersByName("john*", 0, 10, out totalRecords)` will return a list of users with a name that starts with `john`). This feature is enabled by default, but if you of some reason want to disable it you can set the `allowWildcardSearch`-element to false. Here is an example how to turn this feature off:
 
 {{{
 <allowWildcardSearch value="false" />
@@ -150,13 +150,13 @@ Here is an example:
 }}}
 
 
-In the ´base´-element you define the base DN. The base shall be distinguished name that point to the level in the LDAP under wich the users are located. If you need to know more about distinguished names you can read more about it [http://publib.boulder.ibm.com/infocenter/iseries/v5r3/index.jsp?topic=%2Frzahy%2Frzahyunderdn.htm here] or [http://msdn.microsoft.com/en-us/library/windows/desktop/aa366101%28v=vs.85%29.aspx here]. The search that will be performed will search the whole subtree so it will be able to find users in several levels, but to make it as performance wise as possible it is a good idea to configure this as close to the users as possible. A base config can for example looks like this:
+In the ´base´-element you define the base DN. The base shall be distinguished name that point to the level in the LDAP under wich the users are located. If you need to know more about distinguished names you can read more about it [http://publib.boulder.ibm.com/infocenter/iseries/v5r3/index.jsp?topic=%2Frzahy%2Frzahyunderdn.htm here] or [http://msdn.microsoft.com/en-us/library/windows/desktop/aa366101%28v=vs.85%29.aspx here]. The search that will be performed will search the whole sub tree so it will be able to find users in several levels, but to make it as performance wise as possible it is a good idea to configure this as close to the users as possible. A base config can for example looks like this:
 
 {{{
 <base value="ou=people,o=example,dc=org" />
 }}}
 
-The next thing you have to do is to define a LDAP format filter that shall be used to find the user entries. If you need to know more about search filters you can read more about them [http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx here], [http://www.ldapexplorer.com/en/manual/109010000-ldap-filter-syntax.htm here] or [http://publib.boulder.ibm.com/infocenter/tivihelp/v8r1/index.jsp?topic=%2Fcom.ibm.netcool_impact.doc%2Fim31pr%2FxF1052585.html here]. *Notice that the filter has to be XML elncoded in the config file*.
+The next thing you have to do is to define a LDAP format filter that shall be used to find the user entries. If you need to know more about search filters you can read more about them [http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx here], [http://www.ldapexplorer.com/en/manual/109010000-ldap-filter-syntax.htm here] or [http://publib.boulder.ibm.com/infocenter/tivihelp/v8r1/index.jsp?topic=%2Fcom.ibm.netcool_impact.doc%2Fim31pr%2FxF1052585.html here]. _Notice that the filter has to be XML elncoded in the config file_.
 The default will be `(objectClass=*)` but performance wise it can be a good idea to make a more specific filter. If you are using Microsoft Active Directory this filter shall typically be `(sAMAccountType=805306368)`, and for an ADAM server it is typically `(&amp;(objectClass=user)(objectCategory=person))` while for for example an IBM Tivoli server is is typibally `(objectClass=person)`. Here is an example how a configuration for this can look like:
 
 {{{
@@ -169,17 +169,65 @@ The next thing you will have to do is to tell which attribute that contains the 
 <rdnAttribute value="uid" />
 }}}
 
-You can also define in which formats the user names shall be returned by the component by changing the value in the `nameType`-element. The possible values for this setting are `CN`, `RDN` or `DN`. The default if you leave this element out i `CN` and is probably the value the majority of the consumers of this component shall use, that will return the user name as a standard common name. `RDN` will return the name formated as a Relative Distinguished Name and the `DN` will result in that the names are returned as full Distinguished Names. Values other than `CN` will probably only be interesting for LDAP developers, so leave this element out or set to `CN` if you do not have any specific reason for anyting else. Here is an example where the value is set to default:
+You can also define in which formats the user names shall be returned by the component by changing the value in the `nameType`-element. The possible values for this setting are `CN`, `RDN` or `DN`. The default if you leave this element out i `CN` and is probably the value the majority of the consumers of this component shall use, that will return the user name as a standard common name. `RDN` will return the name formatted as a Relative Distinguished Name and the `DN` will result in that the names are returned as full Distinguished Names. Values other than `CN` will probably only be interesting for LDAP developers, so leave this element out or set to `CN` if you do not have any specific reason for anyting else. Here is an example where the value is set to default:
 
 {{{
 <nameType value="cn" />
+}}}
+
+If you are using an LDAP server that store in which groups a user are a member of, not just in the group, but also in the user itself, you can define the attribute in the user entry that is storing the memberships, you do this by setting the attribute name in the `membershipAttribute`-element. Most LDAP servers cross store the membership both in the user and in the group, but there are some exceptions, like Oracle Internet Directory and some installations of Lotus Domino, for such servers you leave this setting blank or leave the element out completely. If your LDAP server supports cross storing of memebership it is higly suggested to set this value though, even if it will work without it, because it is mych more performance wise to just search the user for it's groups rather than to search the groups for user belonings. IBM Tivoli servers typically use `ibm-allGroups` for this while for example Microsoft Active Directory typically use `memberOf`. Here is an example:
+
+{{{
+<membershipAttribute value="memberOf" />
 }}}
 
 ... More info added soon ...
 
 === Configure group settings ===
 
-... More info added soon ...
+In an LDAP server membership roles are typically called groups. To map thous groups to a be a role in the LdapRoleProvider you have to tell the provider how to find the group-enries in the LDAP-server and which attribute in the group entries that contain a reference to the users that are members of the group. You will do all user specific configuration beneath the `groups`-element which shall be placed inside the ´ldapServer´-element. Here is an example:
+
+Here is an example:
+
+{{{
+<ldapServer value="MyLdapServer" default="true">
+   <groups>
+   <!--... group configuration goes here -->
+   </groups>
+</ldapServer>
+}}}
+
+
+In the ´base´-element you define the base DN. The base shall be distinguished name that point to the level in the LDAP under which the groups are located. If you need to know more about distinguished names you can read more about it [http://publib.boulder.ibm.com/infocenter/iseries/v5r3/index.jsp?topic=%2Frzahy%2Frzahyunderdn.htm here] or [http://msdn.microsoft.com/en-us/library/windows/desktop/aa366101%28v=vs.85%29.aspx here]. The search that will be performed will search the whole sub tree so it will be able to find groups in several levels, but to make it as performance wise as possible it is a good idea to configure this as close to the groups as possible. A base config can for example looks like this:
+
+{{{
+<base value="ou=groups,o=example,dc=org" />
+}}}
+
+The next thing you have to do is to define a LDAP format filter that shall be used to find the group entries. If you need to know more about search filters you can read more about them [http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx here], [http://www.ldapexplorer.com/en/manual/109010000-ldap-filter-syntax.htm here] or [http://publib.boulder.ibm.com/infocenter/tivihelp/v8r1/index.jsp?topic=%2Fcom.ibm.netcool_impact.doc%2Fim31pr%2FxF1052585.html here]. *Notice that the filter has to be XML encoded in the config file*.
+The default will be `(objectClass=*)` but performance wise it can be a good idea to make a more specific filter. If you are using Microsoft Active Directory or ADAM this filter shall typically be `(objectClass=group)`, while for for example an IBM Tivoli server is is typibally `(objectClass=groupOfNames)`. Here is an example how a configuration for this can look like:
+
+{{{
+<filter value="(objectClass=groupOfNames)"/>
+}}}
+
+The next thing you will have to do is to tell which attribute that contains the unique group name in a group entry, the so called Relative Distinguished Name (RDN). The default value if you leave this element out is `CN` and is also the most common value for most LDAP server. Here is an example how a configuration for this can look like:
+
+{{{
+<rdnAttribute value="cn" />
+}}}
+
+You can also define in which formats the groups names shall be returned by the component by changing the value in the `nameType`-element. The possible values for this setting are `CN`, `RDN` or `DN`. The default if you leave this element out i `CN` and is probably the value the majority of the consumers of this component shall use, that will return the group name as a standard common name. `RDN` will return the name formatted as a Relative Distinguished Name and the `DN` will result in that the names are returned as full Distinguished Names. Values other than `CN` will probably only be interesting for LDAP developers, so leave this element out or set to `CN` if you do not have any specific reason for anyting else. Here is an example where the value is set to default:
+
+{{{
+<nameType value="cn" />
+}}}
+
+You will also have to define the attribute that contain a reference to the users that are members of the group. You do this by setting the attribute name in the `membershipAttribute`-element. The typically value for this attribute is `member` for most LDAP servers. _Notice that this attribute is mandatory and if you leave it out it will be set to the default value `member`_. Here is an example how this config can look like:
+
+{{{
+<membershipAttribute value="member" />
+}}}
 
 === Summary ===
 
@@ -209,8 +257,8 @@ Here is an example config where all possible element is defined:
             <rdnAttribute value="uid" />
             <nameType value="cn" />
             <membershipAttribute value="memberOf" />
-            <descriptionAttribute value="cn" />
             <emailAttribute value="mail" />
+            <descriptionAttribute value="cn" />
             <creationDateAttribute value="whenCreated" />
             <lastLoginDateAttribute value="lastLogon" />
             <lastPasswordChangedDateAttribute value="pwdLastSet" />
