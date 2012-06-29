@@ -204,7 +204,7 @@ In the ´base´-element you define the base DN. The base shall be distinguished 
 <base value="ou=groups,o=example,dc=org" />
 }}}
 
-The next thing you have to do is to define a LDAP format filter that shall be used to find the group entries. If you need to know more about search filters you can read more about them [http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx here], [http://www.ldapexplorer.com/en/manual/109010000-ldap-filter-syntax.htm here] or [http://publib.boulder.ibm.com/infocenter/tivihelp/v8r1/index.jsp?topic=%2Fcom.ibm.netcool_impact.doc%2Fim31pr%2FxF1052585.html here]. *Notice that the filter has to be XML encoded in the config file*.
+The next thing you have to do is to define a LDAP format filter that shall be used to find the group entries. If you need to know more about search filters you can read more about them [http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx here], [http://www.ldapexplorer.com/en/manual/109010000-ldap-filter-syntax.htm here] or [http://publib.boulder.ibm.com/infocenter/tivihelp/v8r1/index.jsp?topic=%2Fcom.ibm.netcool_impact.doc%2Fim31pr%2FxF1052585.html here]. _Notice that the filter has to be XML encoded in the config file_.
 The default will be `(objectClass=*)` but performance wise it can be a good idea to make a more specific filter. If you are using Microsoft Active Directory or ADAM this filter shall typically be `(objectClass=group)`, while for for example an IBM Tivoli server is is typibally `(objectClass=groupOfNames)`. Here is an example how a configuration for this can look like:
 
 {{{
