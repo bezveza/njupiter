@@ -211,6 +211,13 @@ You can also tell the component to load additional LDAP attributes together with
 </attributes>
 }}}
 
+If you of some reason do not want that the LdapMembershipProvider shall wrap the MembershipUser in a custom LdapMembershipUser you can turn this feature off by setting the `membershipUserWrappingEnabled`-element to false. This can for example be a good idea if you are planning to use the ASP.NET Web Site Administration Tool to access users and roles, but do not want to put the nJupiter.DataAccess.Ldap.dll file in the GAC (read more about this in the [nJupiterDataAccessLdap#Troubleshooting Troubleshooting]. Here is an example how to disable wrapping of the Membershipuser:
+
+{{{
+<membershipUserWrappingEnabled value="false" />
+}}}
+
+Notice though that if you disable this feature you will not be able to access the specific LdapMembershipUser functionality like accessing the Attributes-property that contains LDAP-properties loaded together with the user.
 
 === Configure group settings ===
 
@@ -296,6 +303,7 @@ Here is an example config where all possible element is defined:
                <attribute value="sn" />
                <attribute value="title" excludeFromNameSearch="true" />
             </attributes>
+			<membershipUserWrappingEnabled value="true" />
          </users>
          <groups>
             <base value="ou=groups,dc=example,dc=org" />
@@ -332,3 +340,5 @@ If you get "COMException : Exception from HRESULT: 0x8000500C" your LDAP server 
 If you get "COMException (0x8007203a): The server is not operational" or similar it is typically returned when server is not of some reason reachable in the network, most certainly cause by an incorrect connection string, port or authentication type or by network related issues not associated with the component itself. 
 
 For other COMExceptions please refer to [http://www.selfadsi.org/errorcodes.htm this page]
+
+If you are using the ASP.NET Web Site Administration and get an error similar to "Type is not resolved for member 'nJupiter.DataAccess.Ldap.LdapMembershipUser,nJupiter.DataAccess.Ldap'" that is casued of that  the ASP.NET Web Site Administration Tool needs to serialize the MembershipUser object for an user, but since the ASP.NET Web Site Administration Tool runs in the same application pool as your web it will not be able to access the assembly that contains this LdapMembershipUser class. To solve this you have two choices: either you can register nJupiter.DataAccess.Ldap in the [http://msdn.microsoft.com/en-us/library/yf1d93sz%28v=vs.71%29.aspx GAC] so it can be accessed globaly by any application, or you can turn of wrapping of the MembershipUser by setting the `membershipUserWrappingEnabled`-element to false in users config (please se above).
