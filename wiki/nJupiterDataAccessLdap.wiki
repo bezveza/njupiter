@@ -303,7 +303,7 @@ Here is an example config where all possible element is defined:
                <attribute value="sn" />
                <attribute value="title" excludeFromNameSearch="true" />
             </attributes>
-			<membershipUserWrappingEnabled value="true" />
+            <membershipUserWrappingEnabled value="true" />
          </users>
          <groups>
             <base value="ou=groups,dc=example,dc=org" />
