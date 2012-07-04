@@ -4,7 +4,7 @@
 
 = nJupiter.DataAccess.Ldap =
 
-Component containing a generic MembershipProvider and RoleProvider for LDAP . These providers has been successfully tested with Microsoft Active Directory, Novell eDirectory, IBM Tivoli Directory Server and Lotus Domino but shall probably work with any type of LDAP-server such as OpenLDAP, 389 Directory Server, OpenDS / OpenDJ, Apache DS, Sun One / iPlanet / Netscape DS and Oracle Internet Directory (if you are using these providers with any of the server not listed as tested, please contact with status regaring if they successfully work or not).
+Component containing a generic MembershipProvider and RoleProvider for LDAP . These providers has been successfully tested with Microsoft Active Directory, Novell eDirectory, IBM Tivoli Directory Server and Lotus Domino but shall probably work with any type of LDAP-server such as OpenLDAP, 389 Directory Server, OpenDS / OpenDJ, Apache DS, Sun One / iPlanet / Netscape DS and Oracle Internet Directory (if you are using these providers with any of the server not listed as tested, please contact with status regarding if they successfully work or not).
 
 The component also contain facades and abstractions for System.DirectoryServices namespace and a parser for distinguished names.
 
@@ -123,7 +123,7 @@ If your LDAP server does not support Virtual List View it can be a good reason t
 <pageSize value="50" />
 }}}
 
-If your server supports fetching properties by [http://msdn.microsoft.com/en-us/library/cc223242%28v=prot.13%29.aspx range retrieval] you can turn this feature on by setting the `rangeRetrievalSupport`-element to true. If you leave this element out the default vill be false. It is a good idea to turn this on if your directory contains extremely large membership list (>1000 members), without it the provider can only fetch max 1500 per role when calling the `GetUsersInRole`-method in the LdapRoleProvider. Here is an example how to turn this feature on:
+If your server supports fetching properties by [http://msdn.microsoft.com/en-us/library/cc223242%28v=prot.13%29.aspx range retrieval] you can turn this feature on by setting the `rangeRetrievalSupport`-element to true. If you leave this element out the default will be false. It is a good idea to turn this on if your directory contains extremely large membership list (>1000 members), without it the provider can only fetch max 1500 per role when calling the `GetUsersInRole`-method in the LdapRoleProvider. Here is an example how to turn this feature on:
 
 {{{
 <rangeRetrievalSupport value="true" />
@@ -137,7 +137,7 @@ If you want to be able to do wild card search when you for example using the `Fi
 
 === Configure user settings ===
 
-In an LDAP server membership users are typically called people, persons or users, from now on we call them users. To map thous users to a MembershipUser you have to tell the LdapMembershipProvider how to find the user-enries in the LDAP-server and wich attributes in the LDAP that conform to the properties in the MembershipUser class. You will do all user specific configuration beneath the `users`-element which shall be placed inside the ´ldapServer´-element. Here is an example:
+In an LDAP server membership users are typically called people, persons or users, from now on we call them users. To map thous users to a MembershipUser you have to tell the LdapMembershipProvider how to find the user-entries in the LDAP-server and which attributes in the LDAP that conform to the properties in the MembershipUser class. You will do all user specific configuration beneath the `users`-element which shall be placed inside the ´ldapServer´-element. Here is an example:
 
 Here is an example:
 
@@ -150,14 +150,14 @@ Here is an example:
 }}}
 
 
-In the ´base´-element you define the base DN. The base shall be distinguished name that point to the level in the LDAP under wich the users are located. If you need to know more about distinguished names you can read more about it [http://publib.boulder.ibm.com/infocenter/iseries/v5r3/index.jsp?topic=%2Frzahy%2Frzahyunderdn.htm here] or [http://msdn.microsoft.com/en-us/library/windows/desktop/aa366101%28v=vs.85%29.aspx here]. The search that will be performed will search the whole sub tree so it will be able to find users in several levels, but to make it as performance wise as possible it is a good idea to configure this as close to the users as possible. A base config can for example looks like this:
+In the ´base´-element you define the base DN. The base shall be distinguished name that point to the level in the LDAP under which the users are located. If you need to know more about distinguished names you can read more about it [http://publib.boulder.ibm.com/infocenter/iseries/v5r3/index.jsp?topic=%2Frzahy%2Frzahyunderdn.htm here] or [http://msdn.microsoft.com/en-us/library/windows/desktop/aa366101%28v=vs.85%29.aspx here]. The search that will be performed will search the whole sub tree so it will be able to find users in several levels, but to make it as performance wise as possible it is a good idea to configure this as close to the users as possible. A base config can for example looks like this:
 
 {{{
 <base value="ou=people,o=example,dc=org" />
 }}}
 
-The next thing you have to do is to define a LDAP format filter that shall be used to find the user entries. If you need to know more about search filters you can read more about them [http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx here], [http://www.ldapexplorer.com/en/manual/109010000-ldap-filter-syntax.htm here] or [http://publib.boulder.ibm.com/infocenter/tivihelp/v8r1/index.jsp?topic=%2Fcom.ibm.netcool_impact.doc%2Fim31pr%2FxF1052585.html here]. _Notice that the filter has to be XML elncoded in the config file_.
-The default will be `(objectClass=*)` but performance wise it can be a good idea to make a more specific filter. If you are using Microsoft Active Directory this filter shall typically be `(sAMAccountType=805306368)`, and for an ADAM server it is typically `(&amp;(objectClass=user)(objectCategory=person))` while for for example an IBM Tivoli server is is typibally `(objectClass=person)`. Here is an example how a configuration for this can look like:
+The next thing you have to do is to define a LDAP format filter that shall be used to find the user entries. If you need to know more about search filters you can read more about them [http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx here], [http://www.ldapexplorer.com/en/manual/109010000-ldap-filter-syntax.htm here] or [http://publib.boulder.ibm.com/infocenter/tivihelp/v8r1/index.jsp?topic=%2Fcom.ibm.netcool_impact.doc%2Fim31pr%2FxF1052585.html here]. _Notice that the filter has to be XML encoded in the config file_.
+The default will be `(objectClass=*)` but performance wise it can be a good idea to make a more specific filter. If you are using Microsoft Active Directory this filter shall typically be `(sAMAccountType=805306368)`, and for an ADAM server it is typically `(&amp;(objectClass=user)(objectCategory=person))` while for for example an IBM Tivoli server is is typically `(objectClass=person)`. Here is an example how a configuration for this can look like:
 
 {{{
 <filter value="(objectClass=person)"/>
@@ -169,7 +169,7 @@ The next thing you will have to do is to tell which attribute that contains the 
 <rdnAttribute value="uid" />
 }}}
 
-You can also define in which formats the user names shall be returned by the component by changing the value in the `nameType`-element. The possible values for this setting are `CN`, `RDN` or `DN`. The default if you leave this element out i `CN` and is probably the value the majority of the consumers of this component shall use, that will return the user name as a standard common name. `RDN` will return the name formatted as a Relative Distinguished Name and the `DN` will result in that the names are returned as full Distinguished Names. Values other than `CN` will probably only be interesting for LDAP developers, so leave this element out or set to `CN` if you do not have any specific reason for anyting else. Here is an example where the value is set to default:
+You can also define in which formats the user names shall be returned by the component by changing the value in the `nameType`-element. The possible values for this setting are `CN`, `RDN` or `DN`. The default if you leave this element out i `CN` and is probably the value the majority of the consumers of this component shall use, that will return the user name as a standard common name. `RDN` will return the name formatted as a Relative Distinguished Name and the `DN` will result in that the names are returned as full Distinguished Names. Values other than `CN` will probably only be interesting for LDAP developers, so leave this element out or set to `CN` if you do not have any specific reason for anything else. Here is an example where the value is set to default:
 
 {{{
 <nameType value="cn" />
@@ -181,7 +181,7 @@ If you are using an LDAP server that store in which groups a user are a member o
 <membershipAttribute value="memberOf" />
 }}}
 
-If the users in your LDAP server has e-mail-adresses stored and want them to be mapped to the `Email`-property on the MembershipUser you can configure the `emailAttribute`-element to be set to the corresponding attribute in the LDAP. The default value if you leave this element out is will be `mail`. Here is an example how you configure this setting:
+If the users in your LDAP server has e-mail-addresses stored and want them to be mapped to the `Email`-property on the MembershipUser you can configure the `emailAttribute`-element to be set to the corresponding attribute in the LDAP. The default value if you leave this element out is will be `mail`. Here is an example how you configure this setting:
 
 {{{
 <emailAttribute value="mail" />
@@ -221,7 +221,7 @@ Notice though that if you disable this feature you will not be able to access th
 
 === Configure group settings ===
 
-In an LDAP server membership roles are typically called groups. To map thous groups to a be a role in the LdapRoleProvider you have to tell the provider how to find the group-enries in the LDAP-server and which attribute in the group entries that contain a reference to the users that are members of the group. You will do all user specific configuration beneath the `groups`-element which shall be placed inside the ´ldapServer´-element. Here is an example:
+In an LDAP server membership roles are typically called groups. To map thous groups to a be a role in the LdapRoleProvider you have to tell the provider how to find the group-entries in the LDAP-server and which attribute in the group entries that contain a reference to the users that are members of the group. You will do all user specific configuration beneath the `groups`-element which shall be placed inside the ´ldapServer´-element. Here is an example:
 
 Here is an example:
 
@@ -241,7 +241,7 @@ In the ´base´-element you define the base DN. The base shall be distinguished 
 }}}
 
 The next thing you have to do is to define a LDAP format filter that shall be used to find the group entries. If you need to know more about search filters you can read more about them [http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475%28v=vs.85%29.aspx here], [http://www.ldapexplorer.com/en/manual/109010000-ldap-filter-syntax.htm here] or [http://publib.boulder.ibm.com/infocenter/tivihelp/v8r1/index.jsp?topic=%2Fcom.ibm.netcool_impact.doc%2Fim31pr%2FxF1052585.html here]. _Notice that the filter has to be XML encoded in the config file_.
-The default will be `(objectClass=*)` but performance wise it can be a good idea to make a more specific filter. If you are using Microsoft Active Directory or ADAM this filter shall typically be `(objectClass=group)`, while for for example an IBM Tivoli server is is typibally `(objectClass=groupOfNames)`. Here is an example how a configuration for this can look like:
+The default will be `(objectClass=*)` but performance wise it can be a good idea to make a more specific filter. If you are using Microsoft Active Directory or ADAM this filter shall typically be `(objectClass=group)`, while for for example an IBM Tivoli server is is typically `(objectClass=groupOfNames)`. Here is an example how a configuration for this can look like:
 
 {{{
 <filter value="(objectClass=groupOfNames)"/>
@@ -253,7 +253,7 @@ The next thing you will have to do is to tell which attribute that contains the 
 <rdnAttribute value="cn" />
 }}}
 
-You can also define in which formats the groups names shall be returned by the component by changing the value in the `nameType`-element. The possible values for this setting are `CN`, `RDN` or `DN`. The default if you leave this element out i `CN` and is probably the value the majority of the consumers of this component shall use, that will return the group name as a standard common name. `RDN` will return the name formatted as a Relative Distinguished Name and the `DN` will result in that the names are returned as full Distinguished Names. Values other than `CN` will probably only be interesting for LDAP developers, so leave this element out or set to `CN` if you do not have any specific reason for anyting else. Here is an example where the value is set to default:
+You can also define in which formats the groups names shall be returned by the component by changing the value in the `nameType`-element. The possible values for this setting are `CN`, `RDN` or `DN`. The default if you leave this element out i `CN` and is probably the value the majority of the consumers of this component shall use, that will return the group name as a standard common name. `RDN` will return the name formatted as a Relative Distinguished Name and the `DN` will result in that the names are returned as full Distinguished Names. Values other than `CN` will probably only be interesting for LDAP developers, so leave this element out or set to `CN` if you do not have any specific reason for anything else. Here is an example where the value is set to default:
 
 {{{
 <nameType value="cn" />
@@ -321,7 +321,16 @@ Here is an example config where all possible element is defined:
 
 The LdapMembershipProvider and LdapRoleProvider are working like standard MembershipProviders and RoleProviders, the providers are read only though and does not implement any functionality that writes information to the LDAP server, besides that you shall be able to use without doing anything more that explained in the previous sections.
 
-A bonus feature beside the standard provider interface is that the LdapMembershipProvider is able to load LDAP attributes for users besides the standard MembershipUser attributes. Those can be accessible by casting the  MembershipUser to an nJupiter.DataAccess.Ldap.LdapMembershipUser and read the Attributes property.
+A bonus feature beside the standard provider interface is that the LdapMembershipProvider is able to load LDAP attributes for users besides the standard MembershipUser attributes (defined in the `attributes`-element in the users config, look above for more info). Those attributes can then be accessible by casting the  MembershipUser to an nJupiter.DataAccess.Ldap.LdapMembershipUser and read the Attributes property. Here is an example:
+
+{{{
+var ldapMembershipUser = System.Web.Security.Membership.GetUser("username") as LdapMembershipUser;
+if(ldapMembershipUser != null){
+    var givenName = ldapMembershipUser.Attributes["givenName"];
+}
+}}}
+
+The LdapMembershipUser also has a property called ´Path´ that will contain the full LDAP-path which can be used to track back the MembershipUser to a specific LDAP entry. _Notice that you can not access the MembershipUser as a LdapMembershipUser if you have set the `membershipUserWrappingEnabled`-element to false in the users config (please read above for further info).
 
 == Troubleshooting ==
 
@@ -337,8 +346,8 @@ If you get "COMException (0x80005000): Unknown error (0x80005000)" or similar it
 
 If you get "COMException : Exception from HRESULT: 0x8000500C" your LDAP server probably stores some of the attributes in a format that is not generically supported to load via the System.DirectoryServices.DirectorySearcher, this generally happens when the value is stored as a non string format, for example time stamps. Try to clear the settings for `creationDateAttribute`, `lastLoginDateAttribute` and `lastPasswordChangedDateAttribute` and remove any additional attribute that is not in a string format that you have added under the `attributes`-element.
 
-If you get "COMException (0x8007203a): The server is not operational" or similar it is typically returned when server is not of some reason reachable in the network, most certainly cause by an incorrect connection string, port or authentication type or by network related issues not associated with the component itself. 
+If you get "COMException (0x8007203a): The server is not operational" or similar it is typically returned when server is not of some reason reachable in the network, most certainly cause by an incorrect connection string, port or authentication type or by network related issues not associated with the component itself.
 
 For other COMExceptions please refer to [http://www.selfadsi.org/errorcodes.htm this page]
 
-If you are using the ASP.NET Web Site Administration and get an error similar to "Type is not resolved for member 'nJupiter.DataAccess.Ldap.LdapMembershipUser,nJupiter.DataAccess.Ldap'" that is casued of that  the ASP.NET Web Site Administration Tool needs to serialize the MembershipUser object for an user, but since the ASP.NET Web Site Administration Tool does not run in the same application domain as your web it will not be able to access the assembly that contains this LdapMembershipUser class. To solve this you have two choices: either you can register nJupiter.DataAccess.Ldap in the [http://msdn.microsoft.com/en-us/library/yf1d93sz%28v=vs.71%29.aspx GAC] so it can be accessed globaly by any application, or you can turn of wrapping of the MembershipUser by setting the `membershipUserWrappingEnabled`-element to false in users config (please se above).
+If you are using the ASP.NET Web Site Administration and get an error similar to "Type is not resolved for member 'nJupiter.DataAccess.Ldap.LdapMembershipUser,nJupiter.DataAccess.Ldap'" that is casued of that  the ASP.NET Web Site Administration Tool needs to serialize the MembershipUser object for an user, but since the ASP.NET Web Site Administration Tool does not run in the same application domain as your web it will not be able to access the assembly that contains this LdapMembershipUser class. To solve this you have two choices: either you can register nJupiter.DataAccess.Ldap in the [http://msdn.microsoft.com/en-us/library/yf1d93sz%28v=vs.71%29.aspx GAC] so it can be accessed globally by any application, or you can turn of wrapping of the MembershipUser by setting the `membershipUserWrappingEnabled`-element to false in users config (please see above).
