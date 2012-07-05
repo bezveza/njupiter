@@ -1,8 +1,11 @@
 #summary Documentation for nJupiter.Text
+#labels Deprecated
 
 <wiki:toc max_depth="2" />
 
 = nJupiter.Text =
+
+*NOTICE:* This component was depricated and removed in version 4.0.0.
 
 A small component containing methods for Quoted Printable encoding and decoding and methods for detecting if a string is Ascii or Ansi.
 
