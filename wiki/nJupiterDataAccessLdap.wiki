@@ -4,7 +4,7 @@
 
 = nJupiter.DataAccess.Ldap =
 
-Component containing a generic MembershipProvider and RoleProvider for LDAP . These providers has been successfully tested with Microsoft Active Directory, Novell eDirectory, IBM Tivoli Directory Server and Lotus Domino but shall probably work with any type of LDAP-server such as OpenLDAP, 389 Directory Server, OpenDS / OpenDJ, Apache DS, Sun One / iPlanet / Netscape DS and Oracle Internet Directory (if you are using these providers with any of the server not listed as tested, please contact with status regarding if they successfully work or not).
+Component containing a generic MembershipProvider and RoleProvider for LDAP . These providers has been successfully tested with Microsoft Active Directory, Novell eDirectory, IBM Tivoli Directory Server, OpenLDAP and Lotus Domino but shall probably work with any type of LDAP-server such as 389 Directory Server, OpenDS / OpenDJ, Apache DS, Sun One / iPlanet / Netscape DS and Oracle Internet Directory (if you are using these providers with any of the server not listed as tested, please contact with status regarding if they successfully work or not).
 
 The component also contain facades and abstractions for System.DirectoryServices namespace and a parser for distinguished names.
 
