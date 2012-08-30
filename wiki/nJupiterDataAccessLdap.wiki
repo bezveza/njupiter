@@ -67,6 +67,12 @@ Beneath the `ldapServer`-element you add the configuration for the current serve
 <url value="LDAP://ldap.example.org:389/" />
 }}}
 
+If you would like to use [http://msdn.microsoft.com/en-us/library/windows/desktop/ms677945%28v=vs.85%29.aspx serverless binding], you can set this value to just "LDAP://". Notice though that serverless binding is a feature specific for Microsoft Active Directory. Here is an example how to activate this mode:
+
+{{{
+<url value="LDAP://" />
+}}}
+
 The next thing you have to do is to define a `username` and `password` to use when the providers authenticating themselves towards the LDAP server. This user have to have read access in the directory. For more information please read more [http://msdn.microsoft.com/en-us/library/system.directoryservices.directoryentry.username%28v=vs.90%29 here] and [http://msdn.microsoft.com/en-us/library/system.directoryservices.directoryentry.password%28v=vs.90%29 here]. Here is an example:
 
 {{{
