@@ -124,7 +124,7 @@ If no matching XML element or attribute is found a ConfigValueNotFoundException 
 Notice that the GetValue, GetAttribute, GetValueArray and GetAttributeArray methods all support generics and can parse all types that have a System.ComponentModel.TypeDescriptor-converter (which means almost all primitive generic types like boolean, date, int etc).
 
 {{{
-string myDate = config.GetValue<DateTime>("myDate");
+DateTime myDate = config.GetValue<DateTime>("myDate");
 bool myBool = config.GetAttribute<bool>("myElement", "boolAttribute");
 int  myInt = config.GetValue<int>("myInt");
 }}}
